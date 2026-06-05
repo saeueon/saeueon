@@ -1,1 +1,13 @@
+# OS
 .DS_Store
+
+# Claude Code local files
+.claude/
+
+# Large source-image originals (not used at runtime; app uses images_soft/)
+images/*
+!images/Today'star.svg
+
+# Python
+__pycache__/
+*.pyc

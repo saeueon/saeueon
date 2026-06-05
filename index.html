@@ -206,46 +206,6 @@
   .nav:hover a { opacity: 0.6; font-weight: 400; }
   .nav:hover a:hover { opacity: 1; font-weight: 600; }
 
-  /* 언어 변경 토글 (Home 우상단 + Explore 상단 hover) — 공통 비주얼 */
-  #lang, #lang-explore {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    background: none;
-    border: none;
-    padding: 6px 4px;
-    color: #fff;
-    font-family: inherit;
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    cursor: none;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-  }
-  #lang svg, #lang-explore svg { width: 16px; height: 16px; display: block; }
-
-  /* Home: 인트로 우상단 */
-  #lang {
-    position: absolute;
-    top: 40px; right: 40px;
-    z-index: 2;
-    opacity: 0.72;
-    transition: opacity 420ms ease;
-  }
-  #lang:hover { opacity: 1; }
-
-  /* Explore: 상단 hover 시 nav와 함께 등장 (우상단) */
-  #lang-explore {
-    position: fixed;
-    top: 40px; right: 40px;
-    z-index: 150;
-    opacity: 0;
-    transform: translateY(-18px);
-    pointer-events: none;
-    transition: opacity 700ms ease, transform 700ms ease;
-  }
-  #lang-explore.show { opacity: 0.72; transform: translateY(0); pointer-events: auto; }
-  #lang-explore.show:hover { opacity: 1; }
-
   /* Explore: 상단 가장자리 hover 시 내려오는 메뉴 */
   #topnav {
     position: fixed;
@@ -292,9 +252,9 @@
     align-items: center;
     gap: 44px;
     padding: 16px 24px;
-    background: rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
     color: #fff;
     font-family: inherit;
     font-size: 16px;
@@ -303,7 +263,7 @@
     -webkit-backdrop-filter: blur(2px);
     transition: background 420ms ease, transform 420ms ease;
   }
-  #intro .start:hover { background: rgba(255, 255, 255, 0.04); transform: scale(1.03); }
+  #intro .start:hover { background: rgba(255, 255, 255, 0.06); transform: scale(1.03); }
   #intro .start:active { transform: scale(0.98); }
   #intro .start svg { width: 16px; height: 16px; display: block; }
 
@@ -319,7 +279,7 @@
   }
 
   /* 인트로 진입 페이드 (backwards: 지연 동안 0 유지, 종료 후 기본 1로 복귀 → 퇴장 트랜지션 가능) */
-  #nav, #intro .hero, #intro .credit, #lang { position: absolute; z-index: 2; animation: introFade 1000ms ease backwards; }
+  #nav, #intro .hero, #intro .credit { position: absolute; z-index: 2; animation: introFade 1000ms ease backwards; }
   #nav { animation-delay: 150ms; }
   #intro .hero { animation-delay: 320ms; }
   #intro .credit { animation-delay: 560ms; }
@@ -370,11 +330,11 @@
     position: fixed;
     z-index: 200;
     pointer-events: none;
-    padding: 9px 13px;
+    padding: 12px 14px;
     border-radius: 11px;
     background: rgba(12, 12, 18, 0.72);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     opacity: 0;
@@ -384,21 +344,21 @@
   }
   #tip.show { opacity: 1; transform: translateY(0); }
   #tip .t-type {
-    font-size: 9.5px;
+    font-size: 10px;
     letter-spacing: 0;
     color: rgba(var(--glow-warm), 0.9);
     margin-bottom: 4px;
   }
   #tip .t-title {
-    font-size: 13.5px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--fg);
     line-height: 1.35;
   }
   #tip .t-sub {
-    margin-top: 3px;
-    font-size: 11px;
-    color: var(--fg-2);
+    margin-top: 4px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
   }
 
   /* 첫 페이드인 */
@@ -418,17 +378,24 @@
   body.panel-open #cursor-star { opacity: 0; }   /* 패널 열리면 별 커서 숨김 */
 
   /* 별 상세 + 일기 모달 */
-  #detail { display: flex; align-items: center; justify-content: center; z-index: 420; }  /* Archive 위에서 열리도록 */
+  /* 뒤의 움직이는 별이 프로스티드 패널 너머로 비치도록 스크림/블러를 약하게 */
+  #detail {
+    display: flex; align-items: center; justify-content: center; z-index: 420;  /* Archive 위에서 열리도록 */
+    background: rgba(4, 4, 8, 0.3);
+    backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  }
   #detail .detail-panel {
     position: relative;
     display: flex;
     width: min(1060px, 92vw);
     height: min(640px, 86vh);
-    background: rgba(13, 13, 19, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transform: translateY(14px) scale(0.99);
     transition: transform 500ms cubic-bezier(0.6, 0, 0.2, 1);
   }
@@ -440,56 +407,58 @@
   .detail-right { width: 50%; padding: 44px; display: flex; flex-direction: column; }
   .detail-img {
     width: 100%; height: 240px; object-fit: contain; display: block;
-    margin-bottom: 28px;
+    margin-bottom: 28px; border-radius: 6px;
   }
-  .detail-type { font-size: 11px; letter-spacing: 0.18em; color: rgba(var(--glow-warm), 0.85); margin-bottom: 10px; }
+  .detail-type { font-size: 14px; font-weight: 500; color: rgba(var(--glow-warm), 0.85); margin-bottom: 10px; }
   .detail-title { font-size: 26px; font-weight: 600; color: var(--fg); line-height: 1.3; margin-bottom: 6px; }
-  .detail-object { font-size: 13px; color: var(--fg-2); margin-bottom: 24px; }
+  .detail-object { font-size: 13px; color: rgba(255, 255, 255, 0.5); margin-bottom: 24px; }
   .detail-meta { display: flex; flex-direction: column; gap: 14px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 22px; }
-  .detail-row .k { font-size: 11px; letter-spacing: 0.1em; color: var(--fg-3); margin-bottom: 4px; }
+  .detail-row .k { font-size: 12px; color: rgba(255, 255, 255, 0.5); margin-bottom: 4px; }
   .detail-row .v { font-size: 13.5px; color: var(--fg); line-height: 1.55; white-space: pre-line; }
-  .detail-right .dr-date { font-size: 12px; letter-spacing: 0.08em; color: var(--fg-2); margin-bottom: 16px; }
+  .detail-right .dr-date { font-size: 12px; color: rgba(255, 255, 255, 0.5); margin-bottom: 16px; }
   .diary-fields { display: flex; gap: 12px; margin-bottom: 14px; }
   .diary-input {
     flex: 1; min-width: 0;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
     color: var(--fg); font-family: inherit; font-size: 14px;
     padding: 12px 14px; cursor: text;
     transition: border-color 200ms ease;
   }
-  .diary-input#d-pw { flex: 0 0 110px; letter-spacing: 0.3em; }
+  .diary-input#d-pw { flex: 0 0 140px; letter-spacing: 0.3em; }
   .diary-input:focus { outline: none; border-color: rgba(255,255,255,0.3); }
-  .diary-input::placeholder { color: var(--fg-3); letter-spacing: 0; }
+  .diary-input::placeholder { color: rgba(255, 255, 255, 0.3); letter-spacing: 0; }
   .diary-text {
     flex: 1; resize: none; width: 100%;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    color: var(--fg); font-family: inherit; font-size: 15px; line-height: 1.7;
+    color: var(--fg); font-family: inherit; font-size: 14px; line-height: 1.7;
     padding: 18px; cursor: text;
     transition: border-color 200ms ease;
   }
   .diary-text:focus { outline: none; border-color: rgba(255,255,255,0.3); }
-  .diary-text::placeholder { color: var(--fg-3); }
+  .diary-text::placeholder { color: rgba(255, 255, 255, 0.3); }
   .diary-save {
-    margin-top: 18px; align-self: flex-end;
-    padding: 13px 28px; border-radius: 999px;
-    background: rgba(255, 255, 255, 0.92); color: #0c0c12;
-    border: none; font-family: inherit; font-size: 14px; font-weight: 600;
+    margin-top: 18px; align-self: stretch;
+    padding: 14px 28px; border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8); color: #0c0c12;
+    border: 1px solid #000; font-family: inherit; font-size: 14px; font-weight: 600;
     cursor: pointer; transition: opacity 200ms ease, transform 200ms ease;
   }
-  .diary-save:hover { transform: scale(1.03); }
-  .diary-save:active { transform: scale(0.98); }
+  .diary-save:hover { transform: scale(1.005); }
+  .diary-save:active { transform: scale(0.995); }
   .panel-close {
-    position: absolute; top: 18px; right: 20px; z-index: 2;
-    width: 34px; height: 34px; border-radius: 50%;
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-    color: var(--fg-2); font-size: 18px; line-height: 1; cursor: pointer;
+    position: absolute; top: 0; right: 0; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border-radius: 16px;
+    background: transparent; border: none;
+    color: rgba(255, 255, 255, 0.5); font-size: 18px; line-height: 1; cursor: pointer;
     transition: background 200ms ease, color 200ms ease;
   }
-  .panel-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+  .panel-close:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+  .panel-close:active { background: rgba(255, 255, 255, 0.1); }
 
   /* Archive 페이지 */
   #archive { display: block; overflow-y: auto; background: rgba(6, 6, 10, 0.97); }
@@ -508,27 +477,29 @@
   .cal-month { font-size: 18px; font-weight: 600; color: var(--fg); letter-spacing: 0.02em; }
   .cal-arrow-row { display: flex; gap: 8px; }
   .cal-arrow {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: transparent; border: 1px solid rgba(255,255,255,0.14);
-    color: var(--fg-2); font-size: 14px; cursor: pointer;
+    width: 36px; height: 36px; border-radius: 12px;
+    background: transparent; border: none;
+    color: var(--fg-2); cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: background 240ms ease, color 240ms ease, border-color 240ms ease;
+    transition: background 240ms ease, color 240ms ease;
   }
-  .cal-arrow:hover { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.28); }
+  .cal-arrow svg { width: 16px; height: 16px; display: block; }
+  .cal-arrow:hover { background: rgba(255,255,255,0.08); color: #fff; }
+  .cal-arrow:active { background: rgba(255,255,255,0.1); }
   .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 6px; }
   .cal-weekdays span { text-align: center; font-size: 11px; letter-spacing: 0.18em; color: var(--fg-3); padding: 8px 0; }
   .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
   .cal-cell {
-    aspect-ratio: 1 / 1; border-radius: 8px;
+    aspect-ratio: 1 / 1; border-radius: 16px;
     background: transparent; border: 1px solid transparent;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     cursor: pointer; position: relative;
     transition: background 240ms ease, border-color 240ms ease;
   }
   .cal-cell.muted { cursor: default; }
-  .cal-cell:not(.muted):hover { background: rgba(255,255,255,0.04); }
-  .cal-cell.selected { border-color: rgba(255,255,255,0.32); background: rgba(255,255,255,0.04); }
-  .cal-day { font-size: 14px; color: var(--fg); font-variant-numeric: tabular-nums; }
+  .cal-cell:not(.muted):hover { background: rgba(255,255,255,0.06); }
+  .cal-cell.selected { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); }
+  .cal-day { font-size: 16px; font-weight: 500; color: var(--fg); font-variant-numeric: tabular-nums; }
   .cal-cell.muted .cal-day { color: var(--fg-3); opacity: 0.35; }
   .cal-cell.today .cal-day { color: rgba(var(--glow-warm), 1); }
   .cal-mark {
@@ -547,44 +518,47 @@
   .day-head { font-size: 14px; color: var(--fg-2); margin-bottom: 22px; letter-spacing: 0.04em; }
   .day-empty { color: var(--fg-3); font-size: 14px; padding: 80px 0; text-align: center; }
   .day-entry {
-    display: flex; gap: 18px; padding: 18px 0; position: relative;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; gap: 18px; padding: 18px; position: relative;
+    border-radius: 12px;
     cursor: pointer; transition: background 200ms ease;
   }
-  .day-entry:first-of-type { border-top: none; padding-top: 0; }
-  .day-entry:hover { background: rgba(255,255,255,0.025); }
+  .day-entry:hover { background: rgba(255,255,255,0.03); }
   .day-entry:focus-visible { outline: 1px solid rgba(255,255,255,0.25); outline-offset: 2px; }
   .de-img {
     width: 76px; height: 76px; flex-shrink: 0;
     object-fit: contain; border-radius: 6px; background: #0b0b11;
   }
   .de-body { flex: 1; min-width: 0; padding-right: 38px; }
-  .de-meta { font-size: 11px; letter-spacing: 0.1em; color: rgba(var(--glow-warm), 0.85); margin-bottom: 6px; }
+  .de-meta { font-size: 11px; color: rgba(var(--glow-warm), 0.85); margin-bottom: 6px; }
   .de-title { font-size: 15px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
-  .de-type { font-size: 11px; color: var(--fg-3); margin-bottom: 8px; }
+  .de-type { font-size: 11px; color: rgba(255, 255, 255, 0.5); margin-bottom: 8px; }
   .de-text { font-size: 13px; color: var(--fg); line-height: 1.65; white-space: pre-wrap; word-break: break-word;
     display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   }
   .de-del {
-    position: absolute; top: 16px; right: 0;
-    width: 26px; height: 26px; border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12);
-    color: var(--fg-3); font-size: 14px; line-height: 1; cursor: pointer;
+    position: absolute; top: 14px; right: 14px;
+    width: 32px; height: 32px; border-radius: 10px;
+    background: transparent; border: none;
+    color: rgba(255, 255, 255, 0.5); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity 200ms ease, background 200ms ease, color 200ms ease;
   }
+  .de-del svg { width: 16px; height: 16px; display: block; }
   .day-entry:hover .de-del { opacity: 1; }
-  .de-del:hover { background: rgba(255, 90, 90, 0.18); color: #ff9a9a; border-color: rgba(255, 120, 120, 0.4); }
+  .de-del:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
 
   /* 비밀번호 / 확인 모달 (상세 모달과 동일 톤) */
   #modal { display: flex; align-items: center; justify-content: center; z-index: 520; }
   #modal .modal-panel {
     position: relative;
-    width: min(420px, 90vw);
-    background: rgba(13, 13, 19, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    width: min(400px, 90vw);
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
     border-radius: 16px;
-    padding: 40px 36px 32px;
+    padding: 36px 20px;
     box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transform: translateY(14px) scale(0.99);
     transition: transform 500ms cubic-bezier(0.6, 0, 0.2, 1);
     text-align: center;
@@ -610,22 +584,21 @@
   .modal-error.show { opacity: 1; }
   .modal-actions { display: flex; gap: 12px; margin-top: 24px; }
   .modal-btn {
-    flex: 1; padding: 13px 0; border-radius: 999px;
+    flex: 1; padding: 14px 0; border-radius: 12px;
     font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
     transition: opacity 200ms ease, transform 200ms ease, background 200ms ease;
   }
   .modal-btn:active { transform: scale(0.98); }
   .modal-cancel {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.14);
     color: var(--fg);
   }
-  .modal-cancel:hover { background: rgba(255, 255, 255, 0.12); }
+  .modal-cancel:hover { background: rgba(255, 255, 255, 0.06); }
   .modal-ok {
-    background: rgba(255, 255, 255, 0.92); border: none; color: #0c0c12;
+    background: rgba(255, 255, 255, 0.7); border: 1px solid #000; color: #0c0c12;
   }
-  .modal-ok:hover { opacity: 0.9; }
-  .modal-ok.danger { background: rgba(255, 120, 120, 0.92); color: #1a0808; }
+  .modal-ok:hover { background: rgba(255, 255, 255, 0.8); }
 
   /* 저장 토스트 */
   #toast {
@@ -691,15 +664,6 @@
       <a data-page="about" data-label="About"><span>About</span></a>
     </nav>
 
-    <button id="lang" type="button" aria-label="Change language">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="9"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <path d="M12 3c2.6 2.7 2.6 15.3 0 18 M12 3c-2.6 2.7 -2.6 15.3 0 18"/>
-      </svg>
-      <span class="lang-label">KO</span>
-    </button>
-
     <div class="hero">
       <div class="titwrap">
         <img class="title" src="images/Today'star.svg" alt="Today's star" draggable="false" />
@@ -729,21 +693,12 @@
     <a data-page="about" data-label="About"><span>About</span></a>
   </nav>
 
-  <button id="lang-explore" type="button" aria-label="Change language">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="9"/>
-      <line x1="3" y1="12" x2="21" y2="12"/>
-      <path d="M12 3c2.6 2.7 2.6 15.3 0 18 M12 3c-2.6 2.7 -2.6 15.3 0 18"/>
-    </svg>
-    <span class="lang-label">KO</span>
-  </button>
-
   <div id="cursor-star"><i></i></div>
 
   <!-- 별 클릭 상세 + 일기 -->
   <div id="detail" class="panel-overlay">
     <div class="detail-panel">
-      <button class="panel-close" id="detail-close" type="button" aria-label="Close">×</button>
+      <button class="panel-close" id="detail-close" type="button" aria-label="Close"><svg class="x-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/></svg></button>
       <div class="detail-left">
         <img class="detail-img" id="d-img" alt="" />
         <div class="detail-type" id="d-type"></div>
@@ -769,7 +724,7 @@
 
   <!-- Archive 페이지 -->
   <div id="archive" class="panel-overlay">
-    <button class="panel-close" id="archive-close" type="button" aria-label="Close">×</button>
+    <button class="panel-close" id="archive-close" type="button" aria-label="Close"><svg class="x-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/></svg></button>
     <div class="archive-inner">
       <div class="archive-head">
         <div class="ey">ARCHIVE</div>
@@ -781,8 +736,8 @@
           <div class="cal-nav">
             <div class="cal-month" id="cal-month"></div>
             <div class="cal-arrow-row">
-              <button class="cal-arrow" id="cal-prev" type="button" aria-label="Previous month">‹</button>
-              <button class="cal-arrow" id="cal-next" type="button" aria-label="Next month">›</button>
+              <button class="cal-arrow" id="cal-prev" type="button" aria-label="Previous month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg></button>
+              <button class="cal-arrow" id="cal-next" type="button" aria-label="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
             </div>
           </div>
           <div class="cal-weekdays" id="cal-weekdays"></div>
@@ -795,7 +750,7 @@
 
   <!-- About 페이지 -->
   <div id="about" class="panel-overlay">
-    <button class="panel-close" id="about-close" type="button" aria-label="Close">×</button>
+    <button class="panel-close" id="about-close" type="button" aria-label="Close"><svg class="x-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/></svg></button>
     <div class="about-inner">
       <div class="ey">ABOUT</div>
       <h2 id="ab-title">Today&rsquo;star</h2>
@@ -889,7 +844,6 @@ const homeWrap = document.getElementById('home-star-wrap');
 const homeStar = document.getElementById('home-star');
 const cursorStar = document.getElementById('cursor-star');
 const topnav = document.getElementById('topnav');
-const langExplore = document.getElementById('lang-explore');
 let homePick = null;            // 오늘의 별 (Start 시 중앙으로)
 
 /* 인트로 → Explore 진입 전까지 드래그 잠금 */
@@ -1414,7 +1368,7 @@ function openDetail(s){
   dPw.value = '';
   detail.classList.add('show');
   updatePanelOpen();
-  setTimeout(() => dDiary.focus(), 320);
+  setTimeout(() => dNick.focus(), 320);
 }
 // Archive 기록을 상세 패널에서 열어 수정
 function openEntryEdit(entry){
@@ -1430,7 +1384,7 @@ function openEntryEdit(entry){
   dPw.value = entry.pw || '';
   detail.classList.add('show');
   updatePanelOpen();
-  setTimeout(() => dDiary.focus(), 320);
+  setTimeout(() => dNick.focus(), 320);
 }
 function closeDetail(){ detail.classList.remove('show'); currentStar = null; editingEid = null; editingDate = null; updatePanelOpen(); }
 function saveDiary(){
@@ -1546,7 +1500,7 @@ function renderDayPanel(){
         <div class="de-type">${esc(type)}</div>
         <p class="de-text">${esc(e.text)}</p>
       </div>
-      <button class="de-del" data-eid="${e.eid}" title="${L.del[lang]}" aria-label="${L.del[lang]}">×</button>
+      <button class="de-del" data-eid="${e.eid}" title="${L.del[lang]}" aria-label="${L.del[lang]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/></svg></button>
     </div>`;
   }).join('');
 }
@@ -1725,20 +1679,15 @@ const I18N = {
 };
 const subtitleEl = document.querySelector('#intro .subtitle');
 const hintTextEl = document.querySelector('#hint .hint-text');
-const langLabels = document.querySelectorAll('.lang-label');
 function applyLang() {
   subtitleEl.textContent = I18N.subtitle[lang];
   hintTextEl.textContent = I18N.hint[lang];
-  langLabels.forEach((el) => { el.textContent = lang.toUpperCase(); });
   document.documentElement.lang = lang;
   // 열려 있는 패널도 갱신 (일기 입력은 보존)
   if (detail.classList.contains('show') && currentStar) { fillDetailInfo(currentStar); dDate.textContent = fmtDate(new Date(editingDate || Date.now())); }
   if (archive.classList.contains('show')) renderArchive();
   if (about.classList.contains('show')) renderAbout();
 }
-function toggleLang() { lang = lang === 'ko' ? 'en' : 'ko'; applyLang(); }
-document.getElementById('lang').addEventListener('click', toggleLang);
-document.getElementById('lang-explore').addEventListener('click', toggleLang);
 applyLang();
 
 /* ───── 커서가 일정 시간 멈추면 하단 안내 다시 표시 (Explore) ───── */
@@ -1757,9 +1706,8 @@ stage.addEventListener('pointerdown', bumpIdleHint);
 window.addEventListener('mousemove', (e) => {
   cursorStar.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
   if (entered) {
-    const atTop = e.clientY < 90;          // 화면 상단 근처 → 메뉴 + 언어선택 함께 등장
+    const atTop = e.clientY < 90;          // 화면 상단 근처 → 메뉴 등장
     topnav.classList.toggle('show', atTop);
-    langExplore.classList.toggle('show', atTop);
   }
 });
 
