@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Today's Star — Explore</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+<style>
+  :root {
+    --bg-0: #08080C;
+    --bg-1: #0A0A0F;
+    --fg: #F5F5F5;
+    --fg-2: #888888;
+    --fg-3: #555555;
+    --glow-warm: 255, 244, 222;   /* #FFF4DE */
+    --glow-cool: 232, 240, 255;   /* #E8F0FF */
+    --star: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAFQElEQVR42rVXS28bVRg98/Y8HHvijCe2k9iloU0dNWkIVES04rmABQv+AkJiR7vhV7CpBCzYseqGBQtUFYkWkFrUAg00rZJGbarGoY4zntjjxDOezPOyiKOaLlAHmlmN5n7znXvP9zqXQvKHAcA+9S0EEAMgz+qETghKVatVBgAuXvx68tKlb04CwOTkJAuASuIoMbCmaTwAaurokYXjlRfe7QMLSYHZhMC053k8ADY9pEyLolQAILmuywBwAUSHBiwRwgHgFVk+JoqSDkC1bdtNyl4SYwoAbfZ6XDYrDYuiVBZ4rnTixYpmWRbX90UdSowLBdC7zSb7xpnXdEHgRhmWy549e6bQarUYTdOYwwKmZHmYtTod9vTL8yWWF4a4VEqYf2l2wnV32GJRYg+Nap4fZXc9j508NjnB8gIHmqcmKpUJ3wfL83kmib8ku6TTNM0B4MdKpTIoHgCga1qJAwQA3POimjpIqP4GOZrjUhNFTdG0fHnfhCCXU8uVI4U07fspHTrft6UH/v/XE1NPAdEA6KqmMVxRYilK5WSZEUVR0OZKMwU1mxnbL1kCRVb0U7MzhXbX3Ssu0KTgFnqEWEGw2QtXTDPqt9J4oKUSAIQFQM/PzzMAOFVVub29PT52HM6yLM502qy5ZDJAjc/n08pc9aS+cHp+SlZkHSQECIGkyPmFV185/v3lq3794RrTbHZtAL6mDUUnKpVQVdWAluUglUr5lmUFAILFxcWIGojNwbsMIDM9fXTknTffLs2eOlmujI+X9VG9MqxmJ9LpoZIky7kDDgmAnuO0ul273rbaG0bTWF+v/VVbun23duWnq/Xl5YfbAHYAOACCgxNTAISvLlzQp2amT6rD6Zm0opyQJemomBKKgiBoXEqQQR+04nh/EAXBPwPGcQOhJUDsIdjzHM/zTHfP23R6vYdd275ntbt3Vu8s3/34/HmDBYDimCaMjuZGJFEqiJI4xnOcxgvCMMPQKdBJBw8F0CwYJkzxQmqYgApohvFYhu0IPL+529YEDNB7QDUPIA1g+IP33yvMzs2OVqeOlUcLo2N5baSSzWRKiqwUJOUJ1QDgOE7Ltu1GZ2en3jS317caW49XVu/Xlv5c2vr2u8sNAG0AXQD+INVMtVplNE3jFSXitrcDvtdrcc1ml+10OqzneQwAvlhUldmpKf31t16fPvfJuU9TSjoDQuD1HPvLLz7/7MoPP95ZWl1tbm5aXQC+IAhRNpsN8/l0KEm5YGSE822bCUzT9FdWViIWQLyystIP3pNS0nWdGR8fZ0RRZCiK4mSG2Q1oKrhx83fmow8dI5VWM6AIHNtp3vz11qpPcfWyXmmOjIy7hJDAdd2o2+1Gd++uRcDa0yUFdkCukP4CAFCGYcAwjMH6FhYW5nB/+YFgdXYe5wrlYwCB7djG7aU7jeF83lzf3No2DMMbrNcB38/UucjARqI+Gz6cyN1omF3TbNYOEqnVsmrrjxrdOOb3DMPw+7bRUw3jfw2JeCcMQwD+43q9BrKfJ4Zp1gPA69dofBjTifj+VjgkCOHa/bWN0PcCxD7ZWF/f4HmEvt+MkqjMJNOJOE47VLN6+NutxXroe7skiuXFP5Y2RDETbm72wkNTmY0G4qF8Pvz5+i+G5wVbURh0rl273sjlcpG5PxAORVcTALEmSUGn02u7bq/m+UH93oN1U1XVIKmgT6oy4x5FBQA823HuxzHpArAURWGSJNZ/AhYEwQcQdnftZSpGC0BPFEXhsIGJaZo+AGr14aMbmYwsAsDa2pqXhGYkvXY8z0vb36ytTWkqckzhAAAAAElFTkSuQmCC");
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg-0);
+    color: var(--fg);
+    font-family: 'Pretendard', system-ui, -apple-system, 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;                /* Home부터 별 커서 사용 (네이티브 숨김) */
+  }
+
+  #stage {
+    position: fixed;
+    inset: 0;
+    cursor: none;
+    background:
+      radial-gradient(ellipse 80% 70% at 50% 45%, #0d0d16 0%, var(--bg-0) 60%, #050507 100%);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    overflow: hidden;
+  }
+
+  /* 배경 별빛 (parallax 캔버스) */
+  #bg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* 미세 그레인 오버레이 */
+  #grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    z-index: 50;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* 별 이미지 레이어 */
+  #world {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.6;                       /* Home: 뒷배경 천체 60% */
+    transition: opacity 1000ms ease;
+  }
+  body.entered #world { opacity: 1; }   /* Start 후: 100% */
+
+  .star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: auto;
+    cursor: inherit;             /* stage 커서를 따름 (Explore=none) */
+    opacity: 0.9;                /* 기본 90% */
+    /* 로딩 전 아주 옅은 placeholder (하드 경계 없음) */
+    background: radial-gradient(closest-side at 50% 50%, rgba(20, 20, 30, 0.4), rgba(11, 11, 17, 0) 72%);
+    transition: filter 600ms ease, opacity 600ms ease;
+    will-change: transform;
+    transform: translate3d(-9999px, -9999px, 0);
+    contain: layout style paint;
+  }
+  #stage.dragging .star { cursor: inherit; }
+
+  .star img {
+    width: 100%;
+    height: 100%;
+    /* 페더링은 이미지 알파(images_soft PNG)에 구워져 있음 → contain으로 가장자리 보존 */
+    object-fit: contain;
+    display: block;
+    opacity: 0;
+    transition: opacity 700ms ease, transform 600ms ease;
+    transform: scale(1.02);
+  }
+  .star img.loaded { opacity: 1; }
+
+  /* 호버: 이미지는 그대로, 주변(사방)으로 어둠이 퍼지는 dark drop-shadow */
+  #stage:not(.dragging) .star:hover {
+    z-index: 9999 !important;
+    filter:
+      drop-shadow(0 0 26px rgba(0, 0, 0, 0.92))
+      drop-shadow(0 0 60px rgba(0, 0, 0, 0.7))
+      drop-shadow(0 0 110px rgba(0, 0, 0, 0.4));
+  }
+  #stage:not(.dragging) .star:hover img { transform: scale(1.05); }
+  /* hover: 가리킨 이미지 100%, 나머지 60% */
+  #stage:not(.dragging) #world:hover .star { opacity: 0.6; }
+  #stage:not(.dragging) #world:hover .star:hover { opacity: 1; }
+
+  /* ───── UI ───── */
+  .ui { position: fixed; z-index: 100; pointer-events: none; }
+
+  /* ───── 인트로(랜딩) 오버레이 ───── */
+  #intro {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    overflow: hidden;
+    /* 배경 없음 → 뒤의 살아있는 우주(드리프트)가 그대로 보임 */
+    transition: opacity 850ms ease;
+  }
+  /* Home: 랜덤 천체 1개를 가운데 크게 (1920 기준 가로 최대 800px) */
+  /* wrap = 중앙 정렬 + 마우스 패럴랙스(JS), img = 느린 줌(CSS) → transform 분리 */
+  #home-star-wrap {
+    position: absolute;
+    top: 50%; left: 50%;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+  #home-star {
+    display: block;
+    width: min(800px, 72vw);
+    height: auto;
+    opacity: 0.92;
+    animation: homeDrift 22s ease-in-out infinite alternate;
+  }
+  @keyframes homeDrift { from { transform: scale(1); } to { transform: scale(1.06); } }
+  /* 타이틀 가독성용 부드러운 중앙 스크림 (가장자리는 투명 → 우주 보임) */
+  #intro::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse 48% 42% at 50% 50%, rgba(6,6,10,0.5), rgba(6,6,10,0) 72%);
+  }
+  /* Start 퇴장: 메뉴 위로 / 타이틀 제자리 페이드 / 크레딧 아래로 (전체는 스크림과 함께 페이드) */
+  #intro.exit {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #intro.exit #nav {
+    transform: translate(-50%, -190%);
+    transition: transform 950ms cubic-bezier(0.6, 0, 0.2, 1);
+  }
+  #intro.exit .credit {
+    transform: translate(-50%, 220%);
+    transition: transform 950ms cubic-bezier(0.6, 0, 0.2, 1);
+  }
+
+  /* 상단 내비 (배경 없음) — .nav 공유 스타일 */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  #nav {                          /* 인트로(Home)용 위치 */
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .nav a {
+    display: inline-grid;
+    justify-items: center;
+    padding: 8px 4px;
+    font-size: 14px;
+    line-height: 14px;
+    color: #fff;
+    opacity: 1;                   /* 기본: 전부 100% + 400 */
+    font-weight: 400;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: none;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    transition: opacity 480ms ease;
+  }
+  /* 보이지 않는 600 고스트로 칸 너비를 미리 예약 → 굵어져도 들썩임 없음 */
+  .nav a span, .nav a::after { grid-area: 1 / 1; }
+  .nav a::after {
+    content: attr(data-label);
+    font-weight: 600;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  /* hover 시에만: 가리킨 항목 강조(600), 나머지는 60% */
+  .nav:hover a { opacity: 0.6; font-weight: 400; }
+  .nav:hover a:hover { opacity: 1; font-weight: 600; }
+
+  /* 언어 변경 토글 (Home 우상단 + Explore 상단 hover) — 공통 비주얼 */
+  #lang, #lang-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    border: none;
+    padding: 6px 4px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    cursor: none;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+  #lang svg, #lang-explore svg { width: 16px; height: 16px; display: block; }
+
+  /* Home: 인트로 우상단 */
+  #lang {
+    position: absolute;
+    top: 40px; right: 40px;
+    z-index: 2;
+    opacity: 0.72;
+    transition: opacity 420ms ease;
+  }
+  #lang:hover { opacity: 1; }
+
+  /* Explore: 상단 hover 시 nav와 함께 등장 (우상단) */
+  #lang-explore {
+    position: fixed;
+    top: 40px; right: 40px;
+    z-index: 150;
+    opacity: 0;
+    transform: translateY(-18px);
+    pointer-events: none;
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+  #lang-explore.show { opacity: 0.72; transform: translateY(0); pointer-events: auto; }
+  #lang-explore.show:hover { opacity: 1; }
+
+  /* Explore: 상단 가장자리 hover 시 내려오는 메뉴 */
+  #topnav {
+    position: fixed;
+    top: 40px; left: 50%;
+    transform: translate(-50%, -18px);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    cursor: none;
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+  #topnav.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  #topnav a { cursor: none; }     /* Explore에선 별 커서 유지 */
+
+  /* 가운데 히어로 */
+  #intro .hero {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+    text-align: center;
+    width: max-content;
+  }
+  #intro .titwrap { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  #intro .title {
+    display: block;
+    width: clamp(240px, 40vw, 560px);  /* 화면 대비 살짝 작게 */
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  #intro .subtitle {
+    font-size: 16px;
+    color: #fff;
+    opacity: 0.9;
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  }
+  #intro .start {
+    display: inline-flex;
+    align-items: center;
+    gap: 44px;
+    padding: 16px 24px;
+    background: rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: none;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    transition: background 420ms ease, transform 420ms ease;
+  }
+  #intro .start:hover { background: rgba(255, 255, 255, 0.04); transform: scale(1.03); }
+  #intro .start:active { transform: scale(0.98); }
+  #intro .start svg { width: 16px; height: 16px; display: block; }
+
+  #intro .credit {
+    position: absolute;
+    bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.65;
+    white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+  }
+
+  /* 인트로 진입 페이드 (backwards: 지연 동안 0 유지, 종료 후 기본 1로 복귀 → 퇴장 트랜지션 가능) */
+  #nav, #intro .hero, #intro .credit, #lang { position: absolute; z-index: 2; animation: introFade 1000ms ease backwards; }
+  #nav { animation-delay: 150ms; }
+  #intro .hero { animation-delay: 320ms; }
+  #intro .credit { animation-delay: 560ms; }
+  @keyframes introFade { from { opacity: 0; } }
+
+  #hint {
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    color: var(--fg-2);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    opacity: 0;
+    transition: opacity 700ms ease;
+  }
+  #hint.show { opacity: 1; }      /* 진입 직후 + 커서 멈춤(idle) 시 표시 */
+  #hint .dot {
+    width: 13px; height: 13px;
+    background: var(--star) center / contain no-repeat;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse   { 0%,100% { opacity: .5; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.15); } }
+
+  /* 커스텀 별 커서 (Home부터 마우스 추적 + 반짝임) */
+  #cursor-star {
+    position: fixed;
+    left: 0; top: 0;
+    z-index: 300;
+    pointer-events: none;
+    opacity: 1;
+    transform: translate(-100px, -100px);
+    will-change: transform;
+    transition: opacity 300ms ease;
+  }
+  #cursor-star i {                 /* 위치(부모)와 분리된 반짝임 레이어 */
+    display: block;
+    width: 30px; height: 30px;
+    margin: -15px 0 0 -15px;       /* 포인트 중앙 정렬 */
+    background: var(--star) center / contain no-repeat;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+
+  /* 호버 툴팁 */
+  #tip {
+    position: fixed;
+    z-index: 200;
+    pointer-events: none;
+    padding: 9px 13px;
+    border-radius: 11px;
+    background: rgba(12, 12, 18, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 380ms ease, transform 380ms ease;
+    max-width: 240px;
+  }
+  #tip.show { opacity: 1; transform: translateY(0); }
+  #tip .t-type {
+    font-size: 9.5px;
+    letter-spacing: 0;
+    color: rgba(var(--glow-warm), 0.9);
+    margin-bottom: 4px;
+  }
+  #tip .t-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--fg);
+    line-height: 1.35;
+  }
+  #tip .t-sub {
+    margin-top: 3px;
+    font-size: 11px;
+    color: var(--fg-2);
+  }
+
+  /* 첫 페이드인 */
+  #stage { animation: fadeIn 1.4s ease forwards; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* ───── 별 클릭 상세 + 일기 / Archive 공통 오버레이 ───── */
+  .panel-overlay {
+    position: fixed; inset: 0; z-index: 400;
+    background: rgba(4, 4, 8, 0.6);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 500ms ease;
+    cursor: auto;
+  }
+  .panel-overlay.show { opacity: 1; pointer-events: auto; }
+  body.panel-open #cursor-star { opacity: 0; }   /* 패널 열리면 별 커서 숨김 */
+
+  /* 별 상세 + 일기 모달 */
+  #detail { display: flex; align-items: center; justify-content: center; z-index: 420; }  /* Archive 위에서 열리도록 */
+  #detail .detail-panel {
+    position: relative;
+    display: flex;
+    width: min(1060px, 92vw);
+    height: min(640px, 86vh);
+    background: rgba(13, 13, 19, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+    transform: translateY(14px) scale(0.99);
+    transition: transform 500ms cubic-bezier(0.6, 0, 0.2, 1);
+  }
+  #detail.show .detail-panel { transform: none; }
+  .detail-left {
+    width: 50%; padding: 44px; overflow-y: auto;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .detail-right { width: 50%; padding: 44px; display: flex; flex-direction: column; }
+  .detail-img {
+    width: 100%; height: 240px; object-fit: contain; display: block;
+    margin-bottom: 28px;
+  }
+  .detail-type { font-size: 11px; letter-spacing: 0.18em; color: rgba(var(--glow-warm), 0.85); margin-bottom: 10px; }
+  .detail-title { font-size: 26px; font-weight: 600; color: var(--fg); line-height: 1.3; margin-bottom: 6px; }
+  .detail-object { font-size: 13px; color: var(--fg-2); margin-bottom: 24px; }
+  .detail-meta { display: flex; flex-direction: column; gap: 14px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 22px; }
+  .detail-row .k { font-size: 11px; letter-spacing: 0.1em; color: var(--fg-3); margin-bottom: 4px; }
+  .detail-row .v { font-size: 13.5px; color: var(--fg); line-height: 1.55; white-space: pre-line; }
+  .detail-right .dr-date { font-size: 12px; letter-spacing: 0.08em; color: var(--fg-2); margin-bottom: 16px; }
+  .diary-fields { display: flex; gap: 12px; margin-bottom: 14px; }
+  .diary-input {
+    flex: 1; min-width: 0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    color: var(--fg); font-family: inherit; font-size: 14px;
+    padding: 12px 14px; cursor: text;
+    transition: border-color 200ms ease;
+  }
+  .diary-input#d-pw { flex: 0 0 110px; letter-spacing: 0.3em; }
+  .diary-input:focus { outline: none; border-color: rgba(255,255,255,0.3); }
+  .diary-input::placeholder { color: var(--fg-3); letter-spacing: 0; }
+  .diary-text {
+    flex: 1; resize: none; width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: var(--fg); font-family: inherit; font-size: 15px; line-height: 1.7;
+    padding: 18px; cursor: text;
+    transition: border-color 200ms ease;
+  }
+  .diary-text:focus { outline: none; border-color: rgba(255,255,255,0.3); }
+  .diary-text::placeholder { color: var(--fg-3); }
+  .diary-save {
+    margin-top: 18px; align-self: flex-end;
+    padding: 13px 28px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92); color: #0c0c12;
+    border: none; font-family: inherit; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: opacity 200ms ease, transform 200ms ease;
+  }
+  .diary-save:hover { transform: scale(1.03); }
+  .diary-save:active { transform: scale(0.98); }
+  .panel-close {
+    position: absolute; top: 18px; right: 20px; z-index: 2;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--fg-2); font-size: 18px; line-height: 1; cursor: pointer;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .panel-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+  /* Archive 페이지 */
+  #archive { display: block; overflow-y: auto; background: rgba(6, 6, 10, 0.97); }
+  #archive .archive-inner { max-width: 1100px; margin: 0 auto; padding: 110px 40px 80px; }
+  .archive-head { margin-bottom: 40px; }
+  .archive-head .ey { font-size: 12px; letter-spacing: 0.3em; color: var(--fg-3); }
+  .archive-head h2 { font-size: 40px; font-weight: 600; color: var(--fg); margin-top: 12px; }
+  .archive-head .sub { font-size: 14px; color: var(--fg-2); margin-top: 10px; }
+  #archive .panel-close { position: fixed; }   /* 스크롤해도 우상단 고정 */
+
+  /* Archive — 달력 레이아웃 */
+  .cal-wrap { display: flex; gap: 56px; align-items: flex-start; }
+  .cal-left { flex: 0 0 520px; }
+  .cal-right { flex: 1; min-width: 0; }
+  .cal-nav { display: flex; align-items: center; justify-content: space-between; padding: 0 4px 20px; }
+  .cal-month { font-size: 18px; font-weight: 600; color: var(--fg); letter-spacing: 0.02em; }
+  .cal-arrow-row { display: flex; gap: 8px; }
+  .cal-arrow {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: transparent; border: 1px solid rgba(255,255,255,0.14);
+    color: var(--fg-2); font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 240ms ease, color 240ms ease, border-color 240ms ease;
+  }
+  .cal-arrow:hover { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.28); }
+  .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 6px; }
+  .cal-weekdays span { text-align: center; font-size: 11px; letter-spacing: 0.18em; color: var(--fg-3); padding: 8px 0; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-cell {
+    aspect-ratio: 1 / 1; border-radius: 8px;
+    background: transparent; border: 1px solid transparent;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; position: relative;
+    transition: background 240ms ease, border-color 240ms ease;
+  }
+  .cal-cell.muted { cursor: default; }
+  .cal-cell:not(.muted):hover { background: rgba(255,255,255,0.04); }
+  .cal-cell.selected { border-color: rgba(255,255,255,0.32); background: rgba(255,255,255,0.04); }
+  .cal-day { font-size: 14px; color: var(--fg); font-variant-numeric: tabular-nums; }
+  .cal-cell.muted .cal-day { color: var(--fg-3); opacity: 0.35; }
+  .cal-cell.today .cal-day { color: rgba(var(--glow-warm), 1); }
+  .cal-mark {
+    position: absolute; bottom: 9px;
+    width: 4px; height: 4px; border-radius: 50%;
+    background: rgba(var(--glow-warm), 0.95);
+    box-shadow: 0 0 8px rgba(var(--glow-warm), 0.7);
+  }
+  .cal-mark.multi {
+    width: auto; height: auto; background: transparent; box-shadow: none;
+    font-size: 10px; color: rgba(var(--glow-warm), 0.95); letter-spacing: 0.06em;
+    bottom: 6px;
+  }
+
+  /* 우측 — 선택한 날짜의 별/일기 */
+  .day-head { font-size: 14px; color: var(--fg-2); margin-bottom: 22px; letter-spacing: 0.04em; }
+  .day-empty { color: var(--fg-3); font-size: 14px; padding: 80px 0; text-align: center; }
+  .day-entry {
+    display: flex; gap: 18px; padding: 18px 0; position: relative;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer; transition: background 200ms ease;
+  }
+  .day-entry:first-of-type { border-top: none; padding-top: 0; }
+  .day-entry:hover { background: rgba(255,255,255,0.025); }
+  .day-entry:focus-visible { outline: 1px solid rgba(255,255,255,0.25); outline-offset: 2px; }
+  .de-img {
+    width: 76px; height: 76px; flex-shrink: 0;
+    object-fit: contain; border-radius: 6px; background: #0b0b11;
+  }
+  .de-body { flex: 1; min-width: 0; padding-right: 38px; }
+  .de-meta { font-size: 11px; letter-spacing: 0.1em; color: rgba(var(--glow-warm), 0.85); margin-bottom: 6px; }
+  .de-title { font-size: 15px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+  .de-type { font-size: 11px; color: var(--fg-3); margin-bottom: 8px; }
+  .de-text { font-size: 13px; color: var(--fg); line-height: 1.65; white-space: pre-wrap; word-break: break-word;
+    display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .de-del {
+    position: absolute; top: 16px; right: 0;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--fg-3); font-size: 14px; line-height: 1; cursor: pointer;
+    opacity: 0; transition: opacity 200ms ease, background 200ms ease, color 200ms ease;
+  }
+  .day-entry:hover .de-del { opacity: 1; }
+  .de-del:hover { background: rgba(255, 90, 90, 0.18); color: #ff9a9a; border-color: rgba(255, 120, 120, 0.4); }
+
+  /* 비밀번호 / 확인 모달 (상세 모달과 동일 톤) */
+  #modal { display: flex; align-items: center; justify-content: center; z-index: 520; }
+  #modal .modal-panel {
+    position: relative;
+    width: min(420px, 90vw);
+    background: rgba(13, 13, 19, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 40px 36px 32px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+    transform: translateY(14px) scale(0.99);
+    transition: transform 500ms cubic-bezier(0.6, 0, 0.2, 1);
+    text-align: center;
+  }
+  #modal.show .modal-panel { transform: none; }
+  .modal-title { font-size: 19px; font-weight: 600; color: var(--fg); margin-bottom: 10px; }
+  .modal-desc { font-size: 13.5px; color: var(--fg-2); line-height: 1.6; }
+  .modal-input {
+    width: 100%; margin-top: 22px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: var(--fg); font-family: inherit; font-size: 22px; text-align: center;
+    letter-spacing: 0.5em; padding: 14px 0 14px 0.5em; cursor: text;
+    transition: border-color 200ms ease;
+  }
+  .modal-input:focus { outline: none; border-color: rgba(255,255,255,0.3); }
+  .modal-error {
+    min-height: 17px; margin-top: 10px;
+    font-size: 12.5px; color: #ff9a9a;
+    opacity: 0; transition: opacity 200ms ease;
+  }
+  .modal-error.show { opacity: 1; }
+  .modal-actions { display: flex; gap: 12px; margin-top: 24px; }
+  .modal-btn {
+    flex: 1; padding: 13px 0; border-radius: 999px;
+    font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: opacity 200ms ease, transform 200ms ease, background 200ms ease;
+  }
+  .modal-btn:active { transform: scale(0.98); }
+  .modal-cancel {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--fg);
+  }
+  .modal-cancel:hover { background: rgba(255, 255, 255, 0.12); }
+  .modal-ok {
+    background: rgba(255, 255, 255, 0.92); border: none; color: #0c0c12;
+  }
+  .modal-ok:hover { opacity: 0.9; }
+  .modal-ok.danger { background: rgba(255, 120, 120, 0.92); color: #1a0808; }
+
+  /* 저장 토스트 */
+  #toast {
+    position: fixed; left: 50%; bottom: 48px; transform: translate(-50%, 14px);
+    z-index: 500; pointer-events: none;
+    padding: 13px 26px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94); color: #0c0c12;
+    font-size: 14px; font-weight: 600;
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.45);
+    opacity: 0; transition: opacity 400ms ease, transform 400ms ease;
+  }
+  #toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* 저장 완료 — Explore 중앙에 잠깐 떴다 사라지는 토스트 */
+  #save-toast {
+    position: fixed; left: 50%; top: 50%;
+    transform: translate(-50%, -50%) scale(0.94);
+    z-index: 520; pointer-events: none;
+    display: flex; align-items: center; gap: 13px;
+    padding: 22px 38px; border-radius: 16px;
+    background: rgba(13, 13, 19, 0.82);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+    color: var(--fg); font-size: 18px; font-weight: 600; letter-spacing: 0.02em;
+    opacity: 0; transition: opacity 480ms ease, transform 480ms ease;
+  }
+  #save-toast.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  #save-toast .st-star {
+    width: 22px; height: 22px; flex-shrink: 0;
+    background: var(--star) center / contain no-repeat;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+  /* About 페이지 */
+  #about { display: block; overflow-y: auto; background: rgba(6, 6, 10, 0.97); }
+  #about .panel-close { position: fixed; }
+  #about .about-inner { max-width: 680px; margin: 0 auto; padding: 120px 40px 90px; }
+  #about .ey { font-size: 12px; letter-spacing: 0.3em; color: var(--fg-3); }
+  #about h2 {
+    font-family: ui-serif, 'New York', Georgia, 'Times New Roman', serif;
+    font-size: clamp(40px, 6vw, 56px); font-weight: 400; color: var(--fg); margin: 16px 0 32px;
+  }
+  #about p { font-size: 15px; line-height: 1.9; color: var(--fg-2); margin-bottom: 20px; }
+  #about .about-credits { margin-top: 40px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.08); }
+  #about .about-credits div { font-size: 13px; color: var(--fg-3); line-height: 1.8; }
+  #about .about-made { margin-top: 32px; font-size: 13px; color: var(--fg-2); letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+  <div id="stage">
+    <canvas id="bg-canvas"></canvas>
+    <div id="world"></div>
+  </div>
+  <div id="grain"></div>
+
+  <div id="intro">
+    <div id="home-star-wrap"><img id="home-star" alt="" draggable="false" /></div>
+    <nav id="nav" class="nav">
+      <a data-page="home" data-label="Home" class="active"><span>Home</span></a>
+      <a data-page="explore" data-label="Explore"><span>Explore</span></a>
+      <a data-page="archive" data-label="Archive"><span>Archive</span></a>
+      <a data-page="about" data-label="About"><span>About</span></a>
+    </nav>
+
+    <button id="lang" type="button" aria-label="Change language">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <path d="M12 3c2.6 2.7 2.6 15.3 0 18 M12 3c-2.6 2.7 -2.6 15.3 0 18"/>
+      </svg>
+      <span class="lang-label">KO</span>
+    </button>
+
+    <div class="hero">
+      <div class="titwrap">
+        <img class="title" src="images/Today'star.svg" alt="Today's star" draggable="false" />
+        <p class="subtitle">하루 한 번, 우주를 여행하고 나만의 별을 찾는 시간</p>
+      </div>
+      <button id="start" class="start" type="button">
+        Start
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="13 5 20 12 13 19"/></svg>
+      </button>
+    </div>
+
+    <div class="credit">made by @saeueon</div>
+  </div>
+
+  <div id="hint" class="ui"><span class="dot"></span><span class="hint-text">드래그하여 우주를 탐험하세요</span></div>
+
+  <div id="tip">
+    <div class="t-type"></div>
+    <div class="t-title"></div>
+    <div class="t-sub"></div>
+  </div>
+
+  <nav id="topnav" class="nav">
+    <a data-page="home" data-label="Home"><span>Home</span></a>
+    <a data-page="explore" data-label="Explore"><span>Explore</span></a>
+    <a data-page="archive" data-label="Archive"><span>Archive</span></a>
+    <a data-page="about" data-label="About"><span>About</span></a>
+  </nav>
+
+  <button id="lang-explore" type="button" aria-label="Change language">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <path d="M12 3c2.6 2.7 2.6 15.3 0 18 M12 3c-2.6 2.7 -2.6 15.3 0 18"/>
+    </svg>
+    <span class="lang-label">KO</span>
+  </button>
+
+  <div id="cursor-star"><i></i></div>
+
+  <!-- 별 클릭 상세 + 일기 -->
+  <div id="detail" class="panel-overlay">
+    <div class="detail-panel">
+      <button class="panel-close" id="detail-close" type="button" aria-label="Close">×</button>
+      <div class="detail-left">
+        <img class="detail-img" id="d-img" alt="" />
+        <div class="detail-type" id="d-type"></div>
+        <div class="detail-title" id="d-title"></div>
+        <div class="detail-object" id="d-object"></div>
+        <div class="detail-meta">
+          <div class="detail-row"><div class="k" id="d-k-dist">거리</div><div class="v" id="d-dist"></div></div>
+          <div class="detail-row"><div class="k" id="d-k-desc">설명</div><div class="v" id="d-desc"></div></div>
+          <div class="detail-row"><div class="k" id="d-k-credit">크레딧</div><div class="v" id="d-credit"></div></div>
+        </div>
+      </div>
+      <div class="detail-right">
+        <div class="dr-date" id="d-date"></div>
+        <div class="diary-fields">
+          <input class="diary-input" id="d-nick" type="text" maxlength="20" autocomplete="off" />
+          <input class="diary-input" id="d-pw" type="password" inputmode="numeric" maxlength="4" autocomplete="off" />
+        </div>
+        <textarea class="diary-text" id="d-diary"></textarea>
+        <button class="diary-save" id="d-save" type="button">저장하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Archive 페이지 -->
+  <div id="archive" class="panel-overlay">
+    <button class="panel-close" id="archive-close" type="button" aria-label="Close">×</button>
+    <div class="archive-inner">
+      <div class="archive-head">
+        <div class="ey">ARCHIVE</div>
+        <h2 id="ar-title">나의 별 일기</h2>
+        <div class="sub" id="ar-sub">저장한 별과 그날의 기록</div>
+      </div>
+      <div class="cal-wrap">
+        <div class="cal-left">
+          <div class="cal-nav">
+            <div class="cal-month" id="cal-month"></div>
+            <div class="cal-arrow-row">
+              <button class="cal-arrow" id="cal-prev" type="button" aria-label="Previous month">‹</button>
+              <button class="cal-arrow" id="cal-next" type="button" aria-label="Next month">›</button>
+            </div>
+          </div>
+          <div class="cal-weekdays" id="cal-weekdays"></div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+        <div class="cal-right" id="cal-right"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About 페이지 -->
+  <div id="about" class="panel-overlay">
+    <button class="panel-close" id="about-close" type="button" aria-label="Close">×</button>
+    <div class="about-inner">
+      <div class="ey">ABOUT</div>
+      <h2 id="ab-title">Today&rsquo;star</h2>
+      <div id="ab-body"></div>
+    </div>
+  </div>
+
+  <!-- 비밀번호 / 확인 모달 (상세 모달과 동일 톤) -->
+  <div id="modal" class="panel-overlay">
+    <div class="modal-panel">
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-desc" id="modal-desc"></div>
+      <input class="modal-input" id="modal-input" type="password" inputmode="numeric" maxlength="4" autocomplete="off" />
+      <div class="modal-error" id="modal-error"></div>
+      <div class="modal-actions">
+        <button class="modal-btn modal-cancel" id="modal-cancel" type="button"></button>
+        <button class="modal-btn modal-ok" id="modal-confirm" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 저장 토스트 -->
+  <div id="toast"></div>
+
+  <!-- 저장 완료 (Explore 중앙) -->
+  <div id="save-toast"><span class="st-star"></span><span id="save-toast-text"></span></div>
+
+<script>
+/* =========================================================================
+   Today's Star — Explore Page Prototype
+   무한 토러스 우주 + 관성 드래그 + 시드 기반 별 배치
+   모듈: DATA → PLACEMENT → CAMERA → RENDER → INTERACTION
+   ========================================================================= */
+
+/* ───── 임베드 데이터 (stars.json) ───── */
+const DATA = {"image_url_template":"images_soft/{id}.png","image_url_large_template":"https://cdn.esahubble.org/archives/images/wallpaper5/{id}.jpg","stars":[{"id":"heic2017a","type_en":"PLANET","type_ko":"행성","title_en":"Hubble's View of Jupiter and Europa","title_ko":"허블이 본 목성과 에우로파","object_ko":"목성, 에우로파","object_en":"Jupiter, Europa","distance_ko":"지구로부터 6억 5,300만 km","sub_ko":"—","sub_en":"—","desc_ko":"2020년 8월 25일 촬영된 목성. 새로 형성되는 폭풍과 대적반의 친척 격인 구조의 색 변화가 포착됐다. 얼음 위성 에우로파도 함께 담겼다.","credit":"NASA, ESA, A. Simon, M. H. Wong","distance_en":"653 million km from Earth","desc_en":"This image of Jupiter, taken on 25 August 2020, captured a new storm brewing and a cousin of the Great Red Spot changing colour. The image also features Jupiter's icy moon Europa."},{"id":"heic2007a","type_en":"NEBULA","type_ko":"성운","title_en":"Tapestry of Blazing Starbirth","title_ko":"타오르는 별의 탄생","object_ko":"NGC 2014, NGC 2020","object_en":"NGC 2014, NGC 2020","distance_ko":"약 16만 3천 광년 거리","sub_ko":"대마젤란운","sub_en":"Large Magellanic Cloud","desc_ko":"거대 성운 NGC 2014와 이웃 NGC 2020은 우리은하의 위성은하인 대마젤란운에 위치한 거대 별 생성 구역의 일부다.","credit":"NASA, ESA, STScI","distance_en":"163,000 light-years away","desc_en":"The giant nebula NGC 2014 and its neighbour NGC 2020 form part of a vast star-forming region in the Large Magellanic Cloud, a satellite galaxy of the Milky Way."},{"id":"heic1509a","type_en":"CLUSTER","type_ko":"성단","title_en":"Westerlund 2","title_ko":"베스터룬트 2","object_ko":"베스터룬트 2","object_en":"Westerlund 2","distance_ko":"2만 광년 거리","sub_ko":"허블 25주년 기념","sub_en":"Hubble's 25th Anniversary","desc_ko":"허블 25주년 기념 이미지. 가시광선과 근적외선 데이터를 합성한 성단 베스터룬트 2.","credit":"NASA, ESA, Hubble Heritage Team","distance_en":"20,000 light-years away","desc_en":"Hubble's 25th anniversary image of the cluster Westerlund 2, blending visible-light data with near-infrared exposures."},{"id":"heic1501a","type_en":"NEBULA","type_ko":"성운","title_en":"Pillars of Creation","title_ko":"창조의 기둥","object_ko":"독수리성운 (M16)","object_en":"Eagle Nebula (M16)","distance_ko":"7,000 광년 거리","sub_ko":"독수리성운","sub_en":"Eagle Nebula","desc_ko":"독수리성운의 상징적인 기둥들. 다채로운 가스 구름, 어두운 우주 먼지의 가는 줄기들, 항성 복사로 조각된 녹슨 빛의 코끼리 코 모양이 가시광선으로 포착됐다.","credit":"NASA, ESA, Hubble Heritage Team","distance_en":"7,000 light-years away","desc_en":"The Eagle Nebula's iconic pillars in visible light — multi-coloured gas clouds, wispy tendrils of dark cosmic dust, and rust-coloured elephants' trunks sculpted by stellar radiation."},{"id":"potw2050a","type_en":"GALAXY","type_ko":"은하","title_en":"Rings of Relativity","title_ko":"상대성의 고리","object_ko":"GAL-CLUS-022058s","object_en":"GAL-CLUS-022058s","distance_ko":"약 94억 광년 (렌즈된 은하)","sub_ko":"녹은 고리","sub_en":"Molten Ring","desc_ko":"지금까지 발견된 가장 크고 완전한 아인슈타인 고리 중 하나. '녹은 고리'라는 별명을 가진, 둥근 동반 은하 주위를 우아하게 휘감은 은하다.","credit":"NASA, ESA, S. Jha","distance_en":"~9.4 billion light-years (lensed galaxy)","desc_en":"The largest and one of the most complete Einstein rings ever discovered. Nicknamed the 'Molten Ring' — a galaxy elegantly curving around its spherical companion."},{"id":"heic2018b","type_en":"GALAXY","type_ko":"은하","title_en":"Galaxy NGC 2525","title_ko":"은하 NGC 2525","object_ko":"NGC 2525","object_en":"NGC 2525","distance_ko":"지구로부터 7천만 광년","sub_ko":"—","sub_en":"—","desc_ko":"고물자리에 속한 이 은하 중심에는 초대질량 블랙홀이 있다. 거의 모든 은하가 중심에 이런 블랙홀을 품고 있다.","credit":"NASA, ESA, A. Riess","distance_en":"70 million light-years away","desc_en":"This galaxy in the constellation of Puppis hosts a supermassive black hole at its centre — common to nearly every galaxy."},{"id":"heic0715a","type_en":"CLUSTER","type_ko":"성단","title_en":"Extreme Star Cluster NGC 3603","title_ko":"극단의 성단 NGC 3603","object_ko":"NGC 3603","object_en":"NGC 3603","distance_ko":"2만 광년 거리","sub_ko":"우리은하 최대 성단","sub_en":"Milky Way's Most Massive","desc_ko":"우리은하에서 가장 인상적인 거대 젊은 성단 중 하나. 중심부의 뜨거운 푸른 별들이 주변 가스에 거대한 공동을 새기고 있다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"20,000 light-years away","desc_en":"One of the most impressive massive young star clusters in the Milky Way. The hot blue stars at the core are carving out a huge cavity in the surrounding gas."},{"id":"heic1608a","type_en":"NEBULA","type_ko":"성운","title_en":"The Bubble Nebula","title_ko":"거품 성운","object_ko":"NGC 7635","object_en":"NGC 7635","distance_ko":"8천 광년 거리","sub_ko":"허블 26주년 기념","sub_en":"Hubble's 26th Anniversary","desc_ko":"허블 우주망원경 26주년 기념으로 관측된 발광 성운.","credit":"NASA, ESA, Hubble Heritage","distance_en":"8,000 light-years away","desc_en":"An emission nebula observed to celebrate Hubble's 26th year in space."},{"id":"potw1345a","type_en":"GALAXY","type_ko":"은하","title_en":"Antennae Galaxies","title_ko":"안테나 은하","object_ko":"NGC 4038, NGC 4039","object_en":"NGC 4038, NGC 4039","distance_ko":"6,500만 광년 거리","sub_ko":"충돌하는 은하","sub_en":"Colliding Galaxies","desc_ko":"역대 최고 화질의 안테나 은하. 치명적인 포옹 속에 갇힌 두 은하다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"65 million light-years away","desc_en":"The best ever image of the Antennae Galaxies — two galaxies locked in a deadly embrace."},{"id":"heic1307a","type_en":"NEBULA","type_ko":"성운","title_en":"Horsehead Nebula (Infrared)","title_ko":"말머리성운 (적외선)","object_ko":"Barnard 33","object_en":"Barnard 33","distance_ko":"1,300 광년 거리","sub_ko":"허블 23주년 기념","sub_en":"Hubble's 23rd Anniversary","desc_ko":"먼지와 가스의 파도 속에서 거대한 해마처럼 솟아오른 말머리. 적외선으로 촬영해 평소엔 가려져 있던 안쪽까지 포착됐다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"1,300 light-years away","desc_en":"Rising like a giant seahorse from waves of dust and gas — captured in infrared, piercing through dust that usually obscures it."},{"id":"heic0817a","type_en":"GALAXY","type_ko":"은하","title_en":"Magnetic Monster NGC 1275","title_ko":"자기 괴물 NGC 1275","object_ko":"NGC 1275","object_en":"NGC 1275","distance_ko":"2.5억 광년 거리","sub_ko":"페르세우스 은하단","sub_en":"Perseus Cluster","desc_ko":"5,500만 도의 가스에 둘러싸인 채 자기장 안에 떠있는 섬세한 필라멘트.","credit":"NASA, ESA, Hubble Heritage","distance_en":"250 million light-years away","desc_en":"Delicate filaments suspended in a magnetic field, surrounded by gas at 55 million degrees Celsius."},{"id":"heic0406a","type_en":"COSMOLOGY","type_ko":"우주론","title_en":"Hubble Ultra Deep Field","title_ko":"허블 초심층 시야","object_ko":"허블 울트라 딥 필드","object_en":"HUDF","distance_ko":"최대 약 130억 광년","sub_ko":"1만 개의 은하","sub_en":"10,000 Galaxies","desc_ko":"약 1만 개의 은하. 수십억 광년에 걸친, 가시광선으로 본 우주에서 가장 깊은 이미지.","credit":"NASA, ESA, S. Beckwith","distance_en":"up to ~13 billion light-years","desc_en":"Nearly 10,000 galaxies — the deepest visible-light image of the cosmos, cutting across billions of light-years."},{"id":"potw2049a","type_en":"GALAXY","type_ko":"은하","title_en":"The Stellar Forge","title_ko":"별의 대장간","object_ko":"NGC 1792","object_en":"NGC 1792","distance_ko":"약 3,600만 광년 거리","sub_ko":"별폭발 은하","sub_en":"Starburst Galaxy","desc_ko":"비둘기자리의 나선·폭발적 별생성 은하. 푸른 영역은 뜨거운 젊은 별, 중심의 주황빛은 늙고 식어가는 별들이다.","credit":"ESA/Hubble, J. Lee","distance_en":"~36 million light-years away","desc_en":"A spiral starburst galaxy in Columba. Blue patches mark areas of hot young stars; orange centre holds older cooler stars."},{"id":"opo0328a","type_en":"GALAXY","type_ko":"은하","title_en":"The Sombrero Galaxy","title_ko":"솜브레로 은하","object_ko":"메시에 104","object_en":"Messier 104","distance_ko":"3,000만 광년 거리","sub_ko":"솜브레로","sub_en":"Sombrero","desc_ko":"가장 위엄 있는 은하 중 하나. 두꺼운 먼지 띠가 빛나는 흰 핵을 둘러싼 모습이 멕시코 모자를 닮았다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"30 million light-years away","desc_en":"One of the most stately galaxies — a brilliant white core encircled by thick dust lanes. Named after the Mexican hat."},{"id":"heic0702a","type_en":"NEBULA","type_ko":"성운","title_en":"New Stars in N90","title_ko":"N90의 새로 태어난 별들","object_ko":"N90","object_en":"N90","distance_ko":"20만 광년 거리","sub_ko":"소마젤란운","sub_en":"Small Magellanic Cloud","desc_ko":"소마젤란운의 별 생성 구역. 새로 태어난 푸른 별들이 공동을 만들어가고 있다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"200,000 light-years away","desc_en":"Bright blue newly-formed stars blowing a cavity in a star-forming region in the Small Magellanic Cloud."},{"id":"heic0515a","type_en":"NEBULA","type_ko":"성운","title_en":"The Crab Nebula","title_ko":"게성운","object_ko":"메시에 1","object_en":"Messier 1","distance_ko":"6,500 광년 거리","sub_ko":"초신성 잔해","sub_en":"Supernova Remnant","desc_ko":"지금까지 만들어진 게성운 전체의 최고 해상도 이미지. 24장의 노출을 합성했다. 초신성 잔해다.","credit":"NASA, ESA, J. Hester","distance_en":"6,500 light-years away","desc_en":"The highest resolution image of the entire Crab Nebula ever made, from 24 individual exposures. A supernova remnant."},{"id":"heic1808a","type_en":"NEBULA","type_ko":"성운","title_en":"The Lagoon Nebula","title_ko":"석호 성운","object_ko":"메시에 8","object_en":"Messier 8","distance_ko":"약 4천 광년 거리","sub_ko":"허블 28주년 기념","sub_en":"Hubble's 28th Anniversary","desc_ko":"허블 28주년 기념. 성운 전체 너비는 55광년이다.","credit":"NASA, ESA, STScI","distance_en":"4,000 light-years away","desc_en":"Hubble's 28th birthday image. The whole nebula is 55 light-years wide."},{"id":"potw1811a","type_en":"GALAXY","type_ko":"은하","title_en":"Spirals and Supernovae","title_ko":"나선과 초신성","object_ko":"NGC 1015","object_en":"NGC 1015","distance_ko":"1억 1,800만 광년 거리","sub_ko":"—","sub_en":"—","desc_ko":"고래자리의 막대나선은하. 캐서린 휠 폭죽처럼 반짝인다.","credit":"ESA/Hubble, A. Riess","distance_en":"118 million light-years away","desc_en":"A barred spiral galaxy in Cetus, sparkling like a Catherine wheel firework."},{"id":"heic0910h","type_en":"NEBULA","type_ko":"성운","title_en":"Butterfly Nebula NGC 6302","title_ko":"나비 성운 NGC 6302","object_ko":"NGC 6302","object_en":"NGC 6302","distance_ko":"4,000 광년 거리","sub_ko":"나비","sub_en":"Butterfly","desc_ko":"나비 날개처럼 보이는 것은 2만 도의 가스가 시속 95만 km로 뿜어져 나오는 모습이다.","credit":"NASA, ESA, Hubble SM4","distance_en":"4,000 light-years away","desc_en":"What look like butterfly wings are roiling cauldrons of gas at 20,000°C, tearing through space at 950,000 km/h."},{"id":"heic0601a","type_en":"NEBULA","type_ko":"성운","title_en":"The Orion Nebula","title_ko":"오리온 성운","object_ko":"메시에 42","object_en":"Messier 42","distance_ko":"1,400 광년 거리","sub_ko":"별의 요람","sub_en":"Star Nursery","desc_ko":"수천 개의 별이 태어나고 있는 먼지와 가스의 동굴. 3천 개 이상의 별이 극적인 풍경 속에 자리 잡고 있다.","credit":"NASA, ESA, M. Robberto","distance_en":"1,400 light-years away","desc_en":"A peek inside a cavern of roiling dust and gas where thousands of stars are forming. More than 3,000 stars in a dramatic landscape."},{"id":"heic0514a","type_en":"CLUSTER","type_ko":"성단","title_en":"Star Cluster NGC 346","title_ko":"성단 NGC 346","object_ko":"NGC 346","object_en":"NGC 346","distance_ko":"21만 광년 거리","sub_ko":"소마젤란운","sub_en":"Small Magellanic Cloud","desc_ko":"소마젤란운에 위치한 성단. 뜨거운 별들이 쏟아내는 복사가 주변의 짙은 영역을 깎는다.","credit":"NASA, ESA, A. Nota","distance_en":"210,000 light-years away","desc_en":"Located in the Small Magellanic Cloud. A torrent of radiation from hot stars eats into denser areas."},{"id":"heic0506a","type_en":"GALAXY","type_ko":"은하","title_en":"The Whirlpool Galaxy","title_ko":"소용돌이 은하","object_ko":"메시에 51","object_en":"Messier 51","distance_ko":"2,500만 광년 거리","sub_ko":"소용돌이","sub_en":"Whirlpool","desc_ko":"M51의 우아하게 휘감긴 팔이 공간을 가르며 펼쳐진 거대한 나선 계단처럼 보인다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"25 million light-years away","desc_en":"The graceful, winding arms of M51 appear like a grand spiral staircase sweeping through space."},{"id":"heic0506b","type_en":"NEBULA","type_ko":"성운","title_en":"Eagle Nebula's Stellar Spire","title_ko":"독수리성운의 별 첨탑","object_ko":"독수리성운","object_en":"Eagle Nebula","distance_ko":"7,000 광년 거리","sub_ko":"높이 9.5광년","sub_en":"9.5 light-years tall","desc_ko":"별이 태어나는 둥지에서 솟아오른 9.5광년 높이의 차가운 가스와 먼지 탑.","credit":"NASA, ESA, Hubble Heritage","distance_en":"7,000 light-years away","desc_en":"A 9.5-light-year-tall billowing tower of cold gas and dust rising from a stellar nursery."},{"id":"opo0511a","type_en":"GALAXY","type_ko":"은하","title_en":"Cosmic Dust Bunnies","title_ko":"우주의 먼지 토끼","object_ko":"NGC 1316","object_en":"NGC 1316","distance_ko":"6,000만 광년 거리","sub_ko":"합병의 잔재","sub_en":"Past Merger Remnant","desc_ko":"거대 타원은하 NGC 1316에 숨어 있던 복잡한 먼지 고리와 덩어리들. 과거 합병의 증거다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"60 million light-years away","desc_en":"Complex loops and blobs of cosmic dust hidden in the giant elliptical galaxy NGC 1316. Evidence of a past merger."},{"id":"heic0503a","type_en":"STAR","type_ko":"별","title_en":"Light Echo of V838 Mon","title_ko":"V838 모노케로티스의 빛 메아리","object_ko":"V838 모노케로티스","object_en":"V838 Monocerotis","distance_ko":"약 1만 9천 광년 거리","sub_ko":"빛의 메아리","sub_en":"Light Echo","desc_ko":"별 V838 Mon 주변 먼지 구름의 극적인 변화. 2002년 폭발 이후 계속되고 있다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"~19,000 light-years away","desc_en":"Dramatic changes in dusty cloud structures around the star V838 Mon since its outburst in 2002."},{"id":"opo0501a","type_en":"GALAXY","type_ko":"은하","title_en":"NGC 1300 — Barred Spiral","title_ko":"NGC 1300 — 막대나선","object_ko":"NGC 1300","object_en":"NGC 1300","distance_ko":"6,000만 광년 거리","sub_ko":"막대나선의 전형","sub_en":"Prototypical Barred Spiral","desc_ko":"막대나선은하의 전형. 팔이 가운데 직선 막대의 양끝에 붙어 있다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"60 million light-years away","desc_en":"Considered prototypical of barred spiral galaxies. Arms connect to the ends of a straight central bar."},{"id":"heic0206a","type_en":"GALAXY","type_ko":"은하","title_en":"The Tadpole Galaxy","title_ko":"올챙이 은하","object_ko":"UGC 10214","object_en":"UGC 10214","distance_ko":"4억 광년 거리","sub_ko":"올챙이","sub_en":"Tadpole","desc_ko":"긴 별의 띠를 가진 나선은하. 작은 푸른 침입자에 의해 모양이 일그러졌다.","credit":"NASA, ESA, ACS Team","distance_en":"400 million light-years away","desc_en":"A spiral galaxy with a long streamer of stars, distorted by a small blue interloper."},{"id":"heic0206c","type_en":"NEBULA","type_ko":"성운","title_en":"Cone Nebula","title_ko":"원뿔 성운","object_ko":"NGC 2264","object_en":"NGC 2264","distance_ko":"2,500 광년 거리","sub_ko":"꼭대기 2.5광년","sub_en":"Top 2.5 light-years","desc_ko":"괴물 같은 가스·먼지 기둥. 사진은 꼭대기 2.5광년 부분이다.","credit":"NASA, ESA, ACS Team","distance_en":"2,500 light-years away","desc_en":"A monstrous pillar of gas and dust. The upper 2.5 light-years shown."},{"id":"heic0206b","type_en":"GALAXY","type_ko":"은하","title_en":"The Mice Galaxies","title_ko":"생쥐 은하","object_ko":"NGC 4676","object_en":"NGC 4676","distance_ko":"3억 광년 거리","sub_ko":"충돌하는 은하","sub_en":"Colliding Galaxies","desc_ko":"머리털자리에서 충돌 중인 두 은하. 별과 가스로 이루어진 긴 꼬리가 뻗어 나온다.","credit":"NASA, ESA, ACS Team","distance_en":"300 million light-years away","desc_en":"A pair of colliding galaxies in Coma Berenices. Long tails of stars and gas emanate from each."},{"id":"heic0109a","type_en":"NEBULA","type_ko":"성운","title_en":"The Red Spider Nebula","title_ko":"붉은 거미 성운","object_ko":"붉은 거미 성운","object_en":"Red Spider Nebula","distance_ko":"3천 광년 거리","sub_ko":"1,000억 km 파도","sub_en":"Waves 100 billion km high","desc_ko":"지금까지 알려진 가장 뜨거운 별 중 하나를 품은 따뜻한 행성상 성운.","credit":"ESA, Garrelt Mellema","distance_en":"3,000 light-years away","desc_en":"A warm planetary nebula harbouring one of the hottest stars known."},{"id":"opo0006a","type_en":"NEBULA","type_ko":"성운","title_en":"Keyhole Nebula in Carina","title_ko":"용골자리의 열쇠구멍 성운","object_ko":"NGC 3372","object_en":"NGC 3372","distance_ko":"8천 광년 거리","sub_ko":"열쇠구멍","sub_en":"Keyhole","desc_ko":"용골자리 성운 안의 복잡한 구조. 19세기 존 허셜이 이름 붙였다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"8,000 light-years away","desc_en":"A complex structure within the Carina Nebula, named in the 19th century by Sir John Herschel."},{"id":"opo9828c","type_en":"PLANET","type_ko":"행성","title_en":"Saturn in Natural Colours","title_ko":"자연색 토성","object_ko":"토성","object_en":"Saturn","distance_ko":"지구로부터 약 14억 km","sub_ko":"—","sub_en":"—","desc_ko":"선명하고 정밀한 토성의 모습. 파스텔 색감이 두드러진다.","credit":"NASA, ESA, STScI","distance_en":"~1.4 billion km from Earth","desc_en":"A crisp, extremely accurate view of Saturn highlighting its pastel colours."},{"id":"heic2105a","type_en":"STAR","type_ko":"별","title_en":"AG Carinae — 31st Anniversary","title_ko":"AG 카리나 — 31주년","object_ko":"AG 카리나","object_en":"AG Carinae","distance_ko":"1.5만 광년 거리","sub_ko":"껍질 너비 5광년","sub_en":"Shell 5 light-years wide","desc_ko":"허블 31주년 기념. 거대 별과 그를 둘러싼 가스·먼지 껍질.","credit":"NASA, ESA, STScI","distance_en":"15,000 light-years away","desc_en":"Hubble's 31st anniversary image. A giant star surrounded by an expanding shell of gas and dust."},{"id":"heic1302a","type_en":"GALAXY","type_ko":"은하","title_en":"Messier 106","title_ko":"메시에 106","object_ko":"메시에 106","object_en":"Messier 106","distance_ko":"2천만 광년 거리","sub_ko":"—","sub_en":"—","desc_ko":"비교적 가까운 나선은하. 허블과 아마추어 관측이 합쳐졌다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"20 million light-years away","desc_en":"A relatively nearby spiral galaxy, combining Hubble data with amateur observations."},{"id":"heic1105a","type_en":"NEBULA","type_ko":"성운","title_en":"Tarantula Nebula Close-up","title_ko":"타란툴라 성운 근접","object_ko":"타란툴라 성운","object_en":"Tarantula Nebula","distance_ko":"17만 광년 거리","sub_ko":"가장 무거운 별","sub_en":"Heaviest Star Found","desc_ko":"대마젤란운의 별 생성 구역. 극단적 환경의 집이다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"170,000 light-years away","desc_en":"A star-forming region in the Large Magellanic Cloud. Home to extreme conditions."},{"id":"heic1104a","type_en":"GALAXY","type_ko":"은하","title_en":"Flocculent Spiral NGC 2841","title_ko":"양털 나선 NGC 2841","object_ko":"NGC 2841","object_en":"NGC 2841","distance_ko":"6,500만 광년 거리","sub_ko":"양털형","sub_en":"Flocculent Type","desc_ko":"'양털형' 나선은하. 팔이 군데군데 끊긴 듯 보인다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"65 million light-years away","desc_en":"A 'flocculent' spiral — its arms appear patchy and discontinuous."},{"id":"heic1007a","type_en":"NEBULA","type_ko":"성운","title_en":"Mystic Mountain","title_ko":"신비의 산","object_ko":"용골자리 성운","object_en":"Carina Nebula","distance_ko":"7,500 광년 거리","sub_ko":"높이 3광년","sub_en":"3 light-years tall","desc_ko":"용골자리 성운 안 환상적인 봉우리. 3광년 높이의 기둥이다.","credit":"NASA, ESA, M. Livio","distance_en":"7,500 light-years away","desc_en":"A craggy fantasy mountaintop in the Carina Nebula — a 3-light-year-tall pillar."},{"id":"heic0910s","type_en":"GALAXY","type_ko":"은하","title_en":"NGC 6217","title_ko":"NGC 6217","object_ko":"NGC 6217","object_en":"NGC 6217","distance_ko":"최대 9천만 광년 거리","sub_ko":"수리 후 첫 사진","sub_en":"First Post-Repair Image","desc_ko":"2009년 허블 수리 후 새로 복구된 ACS 카메라로 찍은 첫 천체 사진.","credit":"NASA, ESA, Hubble SM4","distance_en":"Up to 90 million light-years","desc_en":"The first image taken with the newly repaired Advanced Camera for Surveys."},{"id":"heic0910i","type_en":"GALAXY","type_ko":"은하","title_en":"Stephan's Quintet","title_ko":"스테판의 오중주","object_ko":"HCG 92","object_en":"HCG 92","distance_ko":"3억 광년 거리","sub_ko":"다섯 은하","sub_en":"Five Galaxies","desc_ko":"다섯 은하의 집합. 단 NGC 7320은 전경 은하다.","credit":"NASA, ESA, Hubble SM4","distance_en":"300 million light-years away","desc_en":"A group of five galaxies — though NGC 7320 is actually a foreground galaxy."},{"id":"heic0905a","type_en":"GALAXY","type_ko":"은하","title_en":"NGC 7049 Dust Lanes","title_ko":"NGC 7049 먼지 띠","object_ko":"NGC 7049","object_en":"NGC 7049","distance_ko":"1억 광년 거리","sub_ko":"레이스 먼지 망","sub_en":"Lacy Dust Web","desc_ko":"헤일로의 별들이 뒤에서 비추어, 먼지 띠가 레이스처럼 드러난다.","credit":"NASA, ESA, W. Harris","distance_en":"100 million light-years away","desc_en":"Dust lanes appear as a lacy web, dramatically backlit by stars in the galaxy's halo."},{"id":"heic0719a","type_en":"GALAXY","type_ko":"은하","title_en":"Holiday wishes from Hubble","title_ko":"허블에서 보내는 인사","object_ko":"메시에 74","object_en":"Messier 74","distance_ko":"2,500만 광년 거리","sub_ko":"분홍빛 HII 구역","sub_en":"Pink HII Regions","desc_ko":"분홍빛 HII 구역이 곳곳에 박힌 은하 M74. 이온화된 수소 구름이다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"25 million light-years away","desc_en":"Galaxy M74 with bright pink HII regions — clouds of ionised hydrogen."},{"id":"heic0707a","type_en":"NEBULA","type_ko":"성운","title_en":"Star Birth in Carina","title_ko":"용골자리의 별 탄생","object_ko":"용골자리 성운","object_en":"Carina Nebula","distance_ko":"7,500광년 거리","sub_ko":"—","sub_en":"—","desc_ko":"괴물 별이 내뿜는 바람과 강렬한 복사로 빚어진 환상적인 풍경.","credit":"NASA, ESA, N. Smith","distance_en":"7,500 light-years away","desc_en":"A fantasy landscape sculpted by outflowing winds and scorching radiation from monster stars."},{"id":"heic0706a","type_en":"GALAXY","type_ko":"은하","title_en":"NGC 1672 Stellar Nursery","title_ko":"NGC 1672 별의 요람","object_ko":"NGC 1672","object_en":"NGC 1672","distance_ko":"6,000만 광년 거리","sub_ko":"—","sub_en":"—","desc_ko":"팔 곳곳에 뜨겁고 푸른 젊은 별 무리가 박힌 막대나선은하.","credit":"NASA, ESA, Hubble Heritage","distance_en":"60 million light-years away","desc_en":"A barred spiral galaxy with clusters of hot young blue stars along its arms."},{"id":"opo0624a","type_en":"GALAXY","type_ko":"은하","title_en":"NGC 5866 — Edge-on Galaxy","title_ko":"NGC 5866 — 옆에서 본 은하","object_ko":"NGC 5866","object_en":"NGC 5866","distance_ko":"4,500만 광년 거리","sub_ko":"측면관측","sub_en":"Edge-on","desc_ko":"거의 옆면이 보이는 원반 은하. 먼지 띠가 은하를 두 쪽으로 나눈다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"45 million light-years away","desc_en":"A disk galaxy tilted nearly edge-on, revealing a crisp dust lane dividing it into two halves."},{"id":"heic0604a","type_en":"GALAXY","type_ko":"은하","title_en":"Starburst Galaxy M82","title_ko":"폭발적 별생성 은하 M82","object_ko":"메시에 82","object_en":"Messier 82","distance_ko":"1,300만 광년 거리","sub_ko":"우리은하 10배 속도","sub_en":"10× Milky Way's Rate","desc_ko":"우리은하보다 10배 빠르게 별을 만들고 있다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"13 million light-years away","desc_en":"Young stars being born 10 times faster than in the Milky Way."},{"id":"heic0602a","type_en":"GALAXY","type_ko":"은하","title_en":"The Pinwheel Galaxy","title_ko":"바람개비 은하","object_ko":"메시에 101","object_en":"Messier 101","distance_ko":"2,300만 광년 거리","sub_ko":"그랜드 디자인 나선","sub_en":"Grand Design Spiral","desc_ko":"허블이 찍은 나선은하 중 가장 크고 정교한 사진.","credit":"NASA, ESA, K. Kuntz","distance_en":"23 million light-years away","desc_en":"The largest and most detailed photo of a spiral galaxy ever taken with Hubble."},{"id":"opo0028a","type_en":"NEBULA","type_ko":"성운","title_en":"The Spirograph Nebula","title_ko":"스피로그래프 성운","object_ko":"IC 418","object_en":"IC 418","distance_ko":"2천 광년 거리","sub_ko":"스피로그래프","sub_en":"Spirograph","desc_ko":"토끼자리의 행성상 성운. 다면체 보석처럼 빛난다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"2,000 light-years away","desc_en":"A planetary nebula in Lepus, glowing like a multi-faceted jewel."},{"id":"opo9941a","type_en":"GALAXY","type_ko":"은하","title_en":"Grazing Encounter of Spirals","title_ko":"스쳐 지나는 나선은하","object_ko":"NGC 2207, IC 2163","object_en":"NGC 2207, IC 2163","distance_ko":"1.1억 광년 거리","sub_ko":"스쳐 가는 은하","sub_en":"Passing Galaxies","desc_ko":"위풍당당한 배처럼 서로를 스쳐 지나가는 두 나선은하.","credit":"NASA, ESA, Hubble Heritage","distance_en":"110 million light-years away","desc_en":"Two spiral galaxies passing by each other like majestic ships in the night."},{"id":"potw2114a","type_en":"GALAXY","type_ko":"은하","title_en":"M61 Spiral Snapshot","title_ko":"M61 나선 스냅샷","object_ko":"메시에 61","object_en":"Messier 61","distance_ko":"5,200만 광년 거리","sub_ko":"별 생성 고리","sub_en":"Star Formation Ring","desc_ko":"나선 팔에 박힌 루비빛 점들은 최근 별 탄생의 흔적.","credit":"ESA/Hubble & NASA","distance_en":"52 million light-years away","desc_en":"Spiral arms studded with ruby-red patches — signs of recent star formation."},{"id":"potw2108a","type_en":"GALAXY","type_ko":"은하","title_en":"The Black Eye Galaxy","title_ko":"검은 눈 은하","object_ko":"NGC 4826","object_en":"NGC 4826","distance_ko":"1,700만 광년 거리","sub_ko":"검은 눈","sub_en":"Black Eye","desc_ko":"밝은 핵을 가로지르는 어두운 먼지 띠 때문에 '검은 눈'이라 불린다.","credit":"ESA/Hubble & NASA","distance_en":"17 million light-years away","desc_en":"Known as the 'Black Eye' galaxy for the dark dust band sweeping across its bright nucleus."},{"id":"potw2036a","type_en":"CLUSTER","type_ko":"성단","title_en":"Globular Cluster NGC 1805","title_ko":"구상성단 NGC 1805","object_ko":"NGC 1805","object_en":"NGC 1805","distance_ko":"약 16만 광년 거리","sub_ko":"1000배 가까운 별들","sub_en":"Stars 1000× Closer","desc_ko":"대마젤란운 가장자리에 빽빽이 모인 수천 개의 별.","credit":"ESA/Hubble & NASA","distance_en":"~163,000 light-years away","desc_en":"Thousands of stars packed tightly together near the edge of the Large Magellanic Cloud."},{"id":"heic2011a","type_en":"NEBULA","type_ko":"성운","title_en":"NGC 6302 and NGC 7027","title_ko":"NGC 6302와 NGC 7027","object_ko":"NGC 6302, NGC 7027","object_en":"NGC 6302, NGC 7027","distance_ko":"약 3,000~3,400 광년 거리","sub_ko":"나비와 보석 풍뎅이","sub_en":"Butterfly & Jewel Bug","desc_ko":"가까운 두 젊은 행성상 성운 — 나비와 보석 풍뎅이.","credit":"NASA, ESA, J. Kastner","distance_en":"~3,000–3,400 light-years away","desc_en":"Two nearby young planetary nebulae — the Butterfly and the Jewel Bug."},{"id":"heic1814b","type_en":"PLANET","type_ko":"행성","title_en":"Saturn 2018","title_ko":"토성 2018","object_ko":"토성","object_en":"Saturn","distance_ko":"지구로부터 14억 km","sub_ko":"고리 나이 약 2억 년","sub_en":"Rings ~200 Million Years Old","desc_ko":"2018년 6월 6일 관측. 모든 고리가 보인다. 고리는 2억 년 전쯤 형성됐다.","credit":"NASA, ESA, A. Simon","distance_en":"1.4 billion km from Earth","desc_en":"Observed 6 June 2018. All classic rings visible. Rings formed ~200 million years ago."},{"id":"heic1516a","type_en":"GALAXY","type_ko":"은하","title_en":"ESO 381-12","title_ko":"ESO 381-12","object_ko":"ESO 381-12","object_en":"ESO 381-12","distance_ko":"2.7억 광년 거리","sub_ko":"유령 같은 껍질","sub_en":"Ghostly Shells","desc_ko":"은하를 둘러싼 유령 같은 껍질들. 가까운 과거 큰 충돌이 있었음을 암시한다.","credit":"ESA/Hubble & NASA","distance_en":"270 million light-years away","desc_en":"Ghostly shells of a galaxy, suggesting a dramatic collision in its relatively recent past."},{"id":"heic1310a","type_en":"NEBULA","type_ko":"성운","title_en":"Ring Nebula M57","title_ko":"고리 성운 M57","object_ko":"메시에 57","object_en":"Messier 57","distance_ko":"2,500 광년 거리","sub_ko":"일그러진 도넛","sub_en":"Distorted Doughnut","desc_ko":"지구에서는 타원처럼 보이지만, 실제로는 일그러진 도넛이다.","credit":"NASA, ESA, C. O'Dell","distance_en":"2,500 light-years away","desc_en":"From Earth the nebula looks like an ellipse, but is actually shaped like a distorted doughnut."},{"id":"heic0910q","type_en":"PLANET","type_ko":"행성","title_en":"Jupiter Impact Site 2009","title_ko":"2009년 목성 충돌 흔적","object_ko":"목성","object_en":"Jupiter","distance_ko":"지구로부터 6억 km","sub_ko":"혜성 충돌 자국","sub_en":"Comet Impact Scar","desc_ko":"2007년 뉴호라이즌스 이후 가장 선명한 가시광선 목성 사진.","credit":"NASA, ESA, M. Wong","distance_en":"600 million km from Earth","desc_en":"Sharpest visible-light image of Jupiter since New Horizons in 2007."},{"id":"heic0411a","type_en":"NEBULA","type_ko":"성운","title_en":"Star Formation in N11B","title_ko":"N11B의 별 생성","object_ko":"N11B","object_en":"N11B","distance_ko":"16만 광년 거리","sub_ko":"대마젤란운","sub_en":"Large Magellanic Cloud","desc_ko":"대마젤란운의 별 탄생이 짜낸 무지갯빛 직물.","credit":"NASA, ESA, Hubble Heritage","distance_en":"160,000 light-years away","desc_en":"An iridescent tapestry of star birth in the Large Magellanic Cloud."},{"id":"opo0123a","type_en":"GALAXY","type_ko":"은하","title_en":"Galaxy Playing Twister","title_ko":"트위스터 추는 은하","object_ko":"ESO 510-G13","object_en":"ESO 510-G13","distance_ko":"1.5억 광년 거리","sub_ko":"휘어진 먼지 원반","sub_en":"Warped Dusty Disk","desc_ko":"휘어진 먼지 원반을 가진 특이한 옆면 은하. 은하 충돌의 증거다.","credit":"NASA, ESA, Hubble Heritage","distance_en":"150 million light-years away","desc_en":"An unusual edge-on galaxy with a warped dusty disk — evidence of galactic collisions."},{"id":"potw2110a","type_en":"NEBULA","type_ko":"성운","title_en":"AFGL 5180 — Stellar Nursery","title_ko":"AFGL 5180 — 별의 요람","object_ko":"AFGL 5180","object_en":"AFGL 5180","distance_ko":"—","sub_ko":"별의 요람","sub_en":"Stellar Nursery","desc_ko":"쌍둥이자리의 아름다운 별 요람. 중심의 거대 별이 구름을 뚫고 공동을 만들고 있다.","credit":"ESA/Hubble & NASA","distance_en":"—","desc_en":"A beautiful stellar nursery in Gemini. A massive star at the centre is blasting cavities through clouds."},{"id":"heic1708a","type_en":"PLANET","type_ko":"행성","title_en":"Jupiter's Colourful Clouds","title_ko":"목성의 다채로운 구름","object_ko":"목성","object_en":"Jupiter","distance_ko":"지구로부터 6억 7천만 km","sub_ko":"구름 띠","sub_en":"Cloud Bands","desc_ko":"위도별로 다른 방향의 기류가 만들어내는 줄무늬.","credit":"NASA, ESA, A. Simon","distance_en":"670 million km from Earth","desc_en":"Bands of different latitudes produced by air flowing in different directions."},{"id":"heic1406a","type_en":"NEBULA","type_ko":"성운","title_en":"Monkey Head Nebula","title_ko":"원숭이 머리 성운","object_ko":"NGC 2174","object_en":"NGC 2174","distance_ko":"6,400광년 거리","sub_ko":"허블 24주년 기념","sub_en":"Hubble's 24th Anniversary","desc_ko":"허블 24주년 기념. 빛나는 우주 가스에 박힌 젊은 별들.","credit":"NASA, ESA, Hubble Heritage","distance_en":"6,400 light-years away","desc_en":"Hubble's 24th anniversary image. Young stars embedded within bright wisps of cosmic gas."},{"id":"heic1305a","type_en":"GALAXY","type_ko":"은하","title_en":"Messier 77","title_ko":"메시에 77","object_ko":"메시에 77","object_en":"Messier 77","distance_ko":"4,500만 광년 거리","sub_ko":"세이퍼트 은하","sub_en":"Seyfert Galaxy","desc_ko":"활동적인 중심을 가진 세이퍼트 은하. 붉고 푸른 줄무늬가 별 생성 구역이다.","credit":"NASA, ESA, A. van der Hoeven","distance_en":"45 million light-years away","desc_en":"A Seyfert galaxy with a highly active centre. Streaks of red and blue mark star formation."},{"id":"heic1110a","type_en":"GALAXY","type_ko":"은하","title_en":"Centaurus A Multi-wavelength","title_ko":"센타우루스 A 다중 파장","object_ko":"NGC 5128","object_en":"NGC 5128","distance_ko":"1,100만 광년 거리","sub_ko":"먼지 띠","sub_en":"Dust Lanes","desc_ko":"극적인 먼지 띠로 유명. 가시광·자외선·근적외선을 합쳤다.","credit":"NASA, ESA, M. Rejkuba","distance_en":"11 million light-years away","desc_en":"Famous for dramatic dust lanes. Combines visible, ultraviolet, and near-infrared light."},{"id":"heic0814a","type_en":"GALAXY","type_ko":"은하","title_en":"Galaxy Cluster Abell 2218","title_ko":"은하단 아벨 2218","object_ko":"아벨 2218","object_en":"Abell 2218","distance_ko":"21억 광년 거리","sub_ko":"중력 렌즈","sub_en":"Gravitational Lens","desc_ko":"수천 은하가 만드는 강력한 중력 렌즈.","credit":"NASA, ESA, A. Fruchter","distance_en":"2.1 billion light-years away","desc_en":"Thousands of galaxies acting as a powerful gravitational lens."},{"id":"opo0010a","type_en":"NEBULA","type_ko":"성운","title_en":"Reflection Nebula NGC 1999","title_ko":"반사 성운 NGC 1999","object_ko":"NGC 1999","object_en":"NGC 1999","distance_ko":"1,500 광년 거리","sub_ko":"—","sub_en":"—","desc_ko":"1999년 12월 허블 수리 직후 촬영.","credit":"NASA, ESA, Hubble Heritage","distance_en":"1,500 light-years away","desc_en":"Snapped weeks after astronauts repaired Hubble in December 1999."},{"id":"potw1933a","type_en":"NEBULA","type_ko":"성운","title_en":"Death of a Star","title_ko":"별의 죽음","object_ko":"NGC 2371/2","object_en":"NGC 2371/2","distance_ko":"약 4,400 광년 거리","sub_ko":"대칭의 로브","sub_en":"Symmetrical Lobes","desc_ko":"좌우 대칭 구조 때문에 처음엔 두 천체로 기록됐다.","credit":"ESA/Hubble & NASA","distance_en":"~4,400 light-years away","desc_en":"Originally recorded as two objects due to its symmetrical lobed structure."},{"id":"potw1932a","type_en":"NEBULA","type_ko":"성운","title_en":"The Inky Abyss","title_ko":"검은 심연","object_ko":"NGC 2022","object_en":"NGC 2022","distance_ko":"약 8,200 광년 거리","sub_ko":"늙은 별의 껍질","sub_en":"Aged Star's Shell","desc_ko":"늙어가는 별이 토해낸 거대한 가스 구.","credit":"ESA/Hubble & NASA","distance_en":"~8,200 light-years away","desc_en":"A vast orb of gas cast off by an ageing star."},{"id":"potw1805a","type_en":"GALAXY","type_ko":"은하","title_en":"NGC 7331","title_ko":"NGC 7331","object_ko":"NGC 7331","object_en":"NGC 7331","distance_ko":"4,500만 광년 거리","sub_ko":"닮은 듯 다른 쌍둥이","sub_en":"Twins with Differences","desc_ko":"1784년 윌리엄 허셜이 처음 발견. 페가수스자리에 있다.","credit":"ESA/Hubble & NASA","distance_en":"45 million light-years away","desc_en":"First spotted by William Herschel in 1784. Located in Pegasus."},{"id":"potw1542a","type_en":"GALAXY","type_ko":"은하","title_en":"Starburst Galaxy M94","title_ko":"폭발적 별생성 은하 M94","object_ko":"메시에 94","object_en":"Messier 94","distance_ko":"1,600만 광년 거리","sub_ko":"별폭발 고리","sub_en":"Starburst Ring","desc_ko":"M94를 둘러싼 밝은 고리에서 격렬한 별 탄생이 진행 중이다.","credit":"ESA/Hubble & NASA","distance_en":"16 million light-years away","desc_en":"A bright ring around M94 hosts intense new star formation."},{"id":"heic1914a","type_en":"PLANET","type_ko":"행성","title_en":"Jupiter's Colourful Palette","title_ko":"목성의 다채로운 팔레트","object_ko":"목성","object_en":"Jupiter","distance_ko":"지구로부터 6억 4,400만 km","sub_ko":"대적반","sub_en":"Great Red Spot","desc_ko":"2019년 6월 27일, 그 해 목성이 지구에 가장 가까이 왔을 때 촬영.","credit":"NASA, ESA, A. Simon","distance_en":"644 million km from Earth","desc_en":"Taken on 27 June 2019 at Jupiter's closest distance that year."},{"id":"potw1921a","type_en":"GALAXY","type_ko":"은하","title_en":"Messier 59","title_ko":"메시에 59","object_ko":"NGC 4621 / M59","object_en":"NGC 4621 / M59","distance_ko":"5,000만 광년 거리","sub_ko":"1779년 카탈로그","sub_en":"Listed in 1779","desc_ko":"타원은하. 늙은 붉은 별들로 가득. 1779년 메시에 목록에 올랐다.","credit":"ESA/Hubble & NASA","distance_en":"50 million light-years away","desc_en":"An elliptical galaxy — full of old red stars. Listed in Messier's 1779 catalogue."},{"id":"heic1907a","type_en":"NEBULA","type_ko":"성운","title_en":"Southern Crab Nebula","title_ko":"남쪽 게 성운","object_ko":"Hen 2-104","object_en":"Hen 2-104","distance_ko":"7,000 광년 거리","sub_ko":"허블 29주년 기념","sub_en":"Hubble's 29th Anniversary","desc_ko":"허블 29주년 기념. 남쪽 하늘의 행성상 성운.","credit":"NASA, ESA, STScI","distance_en":"7,000 light-years away","desc_en":"Hubble's 29th anniversary image. A planetary nebula in the southern sky."},{"id":"potw1849a","type_en":"GALAXY","type_ko":"은하","title_en":"Coma Cluster Core","title_ko":"머리털자리 은하단 중심","object_ko":"머리털자리 은하단","object_en":"Coma cluster","distance_ko":"3억 2천만 광년 거리","sub_ko":"1,000개 이상의 은하","sub_en":"1,000+ Galaxies","desc_ko":"1,000개 이상의 은하가 모인 거대 은하단 중심부의 수천 구상성단.","credit":"ESA/Hubble & NASA","distance_en":"320 million light-years away","desc_en":"Thousands of globular clusters at the core of a huge gathering of over 1,000 galaxies."},{"id":"heic1811a","type_en":"GALAXY","type_ko":"은하","title_en":"Peculiar Galaxy NGC 3256","title_ko":"특이 은하 NGC 3256","object_ko":"NGC 3256","object_en":"NGC 3256","distance_ko":"1억 광년 거리","sub_ko":"과거 합병","sub_en":"Past Merger","desc_ko":"과거 은하 충돌의 결과로 일그러진 모습이 됐다.","credit":"NASA, ESA, STScI","distance_en":"100 million light-years away","desc_en":"The result of a past galactic merger, creating its distorted appearance."},{"id":"potw1822a","type_en":"GALAXY","type_ko":"은하","title_en":"Green Cosmic Arc","title_ko":"녹색 우주 호","object_ko":"SDSS J1156+1911","object_en":"SDSS J1156+1911","distance_ko":"75억 광년 거리","sub_ko":"중력 렌즈 호","sub_en":"Gravitational Lens Arc","desc_ko":"은하단이 중력 렌즈가 되어 빛을 휘게 만든 녹색 호.","credit":"ESA/Hubble & NASA","distance_en":"7.5 billion light-years away","desc_en":"A galaxy cluster acting as a gravitational lens, bending light into a green arc."},{"id":"heic1806a","type_en":"GALAXY","type_ko":"은하","title_en":"Ghostly Galaxy","title_ko":"유령 은하","object_ko":"NGC 1052-DF2","object_en":"NGC 1052-DF2","distance_ko":"6,500만 광년 거리","sub_ko":"암흑물질 없음","sub_en":"No Dark Matter","desc_ko":"너무 희미해서 그 너머 멀리 있는 은하들이 그대로 보인다.","credit":"NASA, ESA, P. van Dokkum","distance_en":"65 million light-years away","desc_en":"So diffuse that distant galaxies can be clearly seen through it."},{"id":"heic1712a","type_en":"GALAXY","type_ko":"은하","title_en":"NGC 1512 and NGC 1510","title_ko":"NGC 1512와 NGC 1510","object_ko":"NGC 1512, NGC 1510","object_en":"NGC 1512, NGC 1510","distance_ko":"3천만 광년 거리","sub_ko":"합쳐지는 은하","sub_en":"Merging Galaxies","desc_ko":"막대나선은하와 왜소은하가 합쳐지는 중이다.","credit":"ESA, NASA","distance_en":"30 million light-years away","desc_en":"A barred spiral and a dwarf galaxy in the process of merging."},{"id":"potw1714a","type_en":"PLANET","type_ko":"행성","title_en":"Aurorae on Uranus","title_ko":"천왕성의 오로라","object_ko":"천왕성","object_en":"Uranus","distance_ko":"지구로부터 약 29억 km","sub_ko":"외계의 오로라","sub_en":"Alien Aurorae","desc_ko":"거대 얼음 행성에서 빛나는 외계의 오로라.","credit":"ESA/Hubble & NASA","distance_en":"~2.9 billion km from Earth","desc_en":"Alien aurorae on the giant ice planet."},{"id":"heic1520a","type_en":"NEBULA","type_ko":"성운","title_en":"Veil Nebula Detail","title_ko":"베일 성운 세부","object_ko":"NGC 6960","object_en":"NGC 6960","distance_ko":"2,100 광년 거리","sub_ko":"마녀의 빗자루","sub_en":"Witch's Broom","desc_ko":"유명한 초신성 잔해의 바깥 껍질 일부.","credit":"NASA, ESA, Hubble Heritage","distance_en":"2,100 light-years away","desc_en":"A section of the outer shell of the famous supernova remnant."},{"id":"heic1518a","type_en":"NEBULA","type_ko":"성운","title_en":"Twin Jet Nebula","title_ko":"쌍둥이 제트 성운","object_ko":"PN M2-9","object_en":"PN M2-9","distance_ko":"4,000 광년 거리","sub_ko":"1,200년 된","sub_en":"1,200 Years Old","desc_ko":"쌍성계가 만든 양극성 행성상 성운.","credit":"ESA, NASA","distance_en":"4,000 light-years away","desc_en":"A bipolar planetary nebula formed by a binary star system."},{"id":"heic1503a","type_en":"GALAXY","type_ko":"은하","title_en":"NGC 7714 — Galactic Brutality","title_ko":"NGC 7714 — 은하의 폭력","object_ko":"NGC 7714","object_en":"NGC 7714","distance_ko":"1억 광년 거리","sub_ko":"진행 중인 합병","sub_en":"Ongoing Merger","desc_ko":"이상한 팔과 금빛 안개. NGC 7715와의 합병의 흔적이다.","credit":"NASA, ESA, A. Gal-Yam","distance_en":"100 million light-years away","desc_en":"Strange arms and a golden haze — evidence of an ongoing merger with NGC 7715."},{"id":"heic1502a","type_en":"GALAXY","type_ko":"은하","title_en":"Sharpest View of Andromeda","title_ko":"안드로메다 최선명 시야","object_ko":"메시에 31","object_en":"Messier 31","distance_ko":"200만 광년 거리","sub_ko":"15억 픽셀","sub_en":"1.5 Billion Pixels","desc_ko":"역대 가장 큰 허블 이미지 — 15억 픽셀. 1억 별이 담겼다.","credit":"NASA, ESA, J. Dalcanton","distance_en":"2 million light-years away","desc_en":"The largest Hubble image ever — 1.5 billion pixels. Shows over 100 million stars."},{"id":"heic1410a","type_en":"PLANET","type_ko":"행성","title_en":"Jupiter's Shrunken Great Red Spot","title_ko":"줄어든 목성 대적반","object_ko":"목성","object_en":"Jupiter","distance_ko":"지구로부터 약 6억 7천만 km","sub_ko":"줄어드는 폭풍","sub_en":"Shrinking Storm","desc_ko":"2014년 4월 21일 촬영한 목성 전체 모습.","credit":"NASA, ESA, A. Simon","distance_en":"~670 million km from Earth","desc_en":"Full-disc image of Jupiter taken on 21 April 2014."},{"id":"heic1323a","type_en":"STAR","type_ko":"별","title_en":"Variable Star RS Puppis","title_ko":"변광성 RS 푸피스","object_ko":"RS 푸피스","object_en":"RS Puppis","distance_ko":"6,500 광년 거리","sub_ko":"40일 밝기 주기","sub_en":"40-day Brightness Cycle","desc_ko":"약 40일마다 밝기가 5배까지 변하는 세페이드 변광성.","credit":"NASA, ESA, Hubble Heritage","distance_en":"6,500 light-years away","desc_en":"A Cepheid variable that varies in brightness by a factor of five every ~40 days."},{"id":"heic0910e","type_en":"NEBULA","type_ko":"성운","title_en":"Carina Nebula Pillar","title_ko":"용골자리 성운 기둥","object_ko":"용골자리 성운","object_en":"Carina Nebula","distance_ko":"7,500광년 거리","sub_ko":"길이 3광년","sub_en":"3 light-years long","desc_ko":"별 복사가 깎아내고 있는 3광년 길이의 가스·먼지 기둥.","credit":"NASA, ESA, M. Livio","distance_en":"7,500 light-years away","desc_en":"A 3-light-year-long pillar of gas and dust sculpted by stellar radiation."},{"id":"heic0814b","type_en":"GALAXY","type_ko":"은하","title_en":"Galaxy Cluster Abell 1703","title_ko":"은하단 아벨 1703","object_ko":"아벨 1703","object_en":"Abell 1703","distance_ko":"30억 광년 거리","sub_ko":"100개 이상의 은하","sub_en":"100+ Galaxies","desc_ko":"100개 이상의 은하가 만드는 우주 망원경.","credit":"NASA, ESA, Hubble Heritage","distance_en":"3 billion light-years away","desc_en":"Over 100 galaxies acting as a cosmic telescope."},{"id":"potw2044a","type_en":"GALAXY","type_ko":"은하","title_en":"Waterfall of Stars","title_ko":"별의 폭포","object_ko":"UGCA 193","object_en":"UGCA 193","distance_ko":"—","sub_ko":"젊고 뜨거운 별들","sub_en":"Young Hot Stars","desc_ko":"젊고 뜨거운 별들이 폭포처럼 흐르는 은하.","credit":"ESA/Hubble & NASA","distance_en":"—","desc_en":"A galaxy in Sextans that looks like a waterfall of young hot stars."},{"id":"potw2006a","type_en":"GALAXY","type_ko":"은하","title_en":"Open Arms — NGC 2008","title_ko":"열린 팔 — NGC 2008","object_ko":"NGC 2008","object_en":"NGC 2008","distance_ko":"4억 2,500만 광년 거리","sub_ko":"1834년 발견","sub_en":"Discovered 1834","desc_ko":"화가자리의 나선은하. 팔이 활짝 열려 있다.","credit":"ESA/Hubble & NASA","distance_en":"425 million light-years away","desc_en":"A spiral galaxy in Pictor with open spiral arms."},{"id":"potw1940a","type_en":"GALAXY","type_ko":"은하","title_en":"Spiral in Profile","title_ko":"옆모습 나선","object_ko":"NGC 3717","object_en":"NGC 3717","distance_ko":"6천만 광년 거리","sub_ko":"옆모습","sub_en":"Edge-on View","desc_ko":"거의 옆에서 본 나선은하.","credit":"ESA/Hubble & NASA","distance_en":"60 million light-years away","desc_en":"A spiral galaxy seen almost in profile."}]};
+
+/* ───── CONFIG (매직 넘버 상수화) ───── */
+const CONFIG = {
+  WORLD: 10000,           // 가상 공간 한 변 (토러스 반복 단위) — 클수록 띄엄띄엄
+  SEED: 20260523,         // 결정론적 배치 시드
+  CLUSTERS: 7,            // 클러스터 개수
+  CLUSTER_RATIO: 0.4,     // 클러스터에 속하는 별 비율
+  CLUSTER_SPREAD: 680,    // 클러스터 내 산포 반경 (gaussian σ) — 클수록 느슨
+  PLACE_CANDIDATES: 20,   // 별당 후보 위치 수 (최소 간격 탐색)
+  OVERLAP: 0.7,           // 허용 겹침 (작을수록 더 떨어뜨림)
+  FRICTION: 0.94,         // 관성 감속 계수
+  VEL_STOP: 0.04,         // 정지 임계 속도
+  VEL_SMOOTH: 0.55,       // 드래그 중 속도 평활
+  CULL_MARGIN: 120,       // 화면 밖 컬링 여유
+  IDLE_DRIFT: 0.13,       // 가만히 둘 때 자동 표류 속도 (배경에 생동감)
+  BG: {
+    COUNT: 2000,          // 배경 별빛 개수
+    WORLD: 2200,          // 배경 별빛 타일 크기
+    PARALLAX: 0.4,        // 배경 시차 (메인 대비 40%)
+  },
+  // 천체 종류별 기본 크기 범위 (px) — 깊이감
+  SIZE: {
+    GALAXY:    [170, 340],
+    NEBULA:    [150, 320],
+    CLUSTER:   [110, 230],
+    PLANET:    [90, 170],
+    STAR:      [70, 140],
+    COSMOLOGY: [240, 360],
+  },
+};
+
+/* ───── 시드 난수 (mulberry32) ───── */
+function mulberry32(seed) {
+  return function () {
+    seed = (seed + 0x6D2B79F5) | 0;
+    let t = seed;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/* ───── DOM 참조 ───── */
+const stage = document.getElementById('stage');
+const world = document.getElementById('world');
+const bgCanvas = document.getElementById('bg-canvas');
+const ctx = bgCanvas.getContext('2d');
+const tip = document.getElementById('tip');
+const tipType = tip.querySelector('.t-type');
+const tipTitle = tip.querySelector('.t-title');
+const tipSub = tip.querySelector('.t-sub');
+const intro = document.getElementById('intro');
+const hint = document.getElementById('hint');
+const homeWrap = document.getElementById('home-star-wrap');
+const homeStar = document.getElementById('home-star');
+const cursorStar = document.getElementById('cursor-star');
+const topnav = document.getElementById('topnav');
+const langExplore = document.getElementById('lang-explore');
+let homePick = null;            // 오늘의 별 (Start 시 중앙으로)
+
+/* 인트로 → Explore 진입 전까지 드래그 잠금 */
+let entered = false;
+let introHideTimer = null;
+let lang = 'ko';                // 'ko' | 'en'
+let hoverStar = null;           // 현재 커서 아래 별 (툴팁용)
+let tapStar = null;             // pointerdown 시점의 별 (클릭 판정용 — capture로 hoverStar가 지워져도 보존)
+let currentStar = null;         // 상세 패널에 띄운 별
+let editingEid = null;          // 수정 중인 기록의 eid (null이면 새 기록 작성)
+let editingDate = null;         // 수정 중인 기록의 원본 날짜 (ISO)
+
+/* Home 마우스 패럴랙스 — 메인 이미지가 커서 반대축으로 스무스/느리게 */
+const PARALLAX_AMT = 60;       // 최대 이동량(px)
+const PARALLAX_EASE = 0.006;   // 작을수록 느리고 부드러움 (아주 아주 느리게)
+const pxTarget = { x: 0, y: 0 };
+const pxCur = { x: 0, y: 0 };
+window.addEventListener('mousemove', (e) => {
+  if (entered) return;
+  pxTarget.x = -((e.clientX / screenW) - 0.5) * 2 * PARALLAX_AMT;   // 반대축
+  pxTarget.y = -((e.clientY / screenH) - 0.5) * 2 * PARALLAX_AMT;
+});
+
+/* ───── 화면 / 카메라 상태 ───── */
+let screenW = window.innerWidth;
+let screenH = window.innerHeight;
+let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+const camera = { x: CONFIG.WORLD / 2, y: CONFIG.WORLD / 2 };
+const velocity = { x: 0, y: 0 };
+
+/* =========================================================================
+   1. PLACEMENT — 시드 기반 결정론적 별 배치
+   ========================================================================= */
+const rng = mulberry32(CONFIG.SEED);
+
+// gaussian (Box-Muller)
+function gauss() {
+  let u = 0, v = 0;
+  while (u === 0) u = rng();
+  while (v === 0) v = rng();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+function wrap(v, size) { return ((v % size) + size) % size; }
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+// 클러스터 중심 결정
+const clusterCenters = [];
+for (let i = 0; i < CONFIG.CLUSTERS; i++) {
+  // 가장자리를 살짝 피해 분산
+  clusterCenters.push({
+    x: lerp(0.12, 0.88, rng()) * CONFIG.WORLD,
+    y: lerp(0.12, 0.88, rng()) * CONFIG.WORLD,
+  });
+}
+
+// 토러스 거리 제곱 (가장 가까운 타일 기준)
+function torusDist2(ax, ay, bx, by) {
+  let dx = Math.abs(ax - bx); dx = Math.min(dx, CONFIG.WORLD - dx);
+  let dy = Math.abs(ay - by); dy = Math.min(dy, CONFIG.WORLD - dy);
+  return dx * dx + dy * dy;
+}
+
+// 후보 위치 1개 추출 (클러스터 / 자유 산포)
+function samplePos(clustered) {
+  if (clustered) {
+    const c = clusterCenters[(rng() * CONFIG.CLUSTERS) | 0];
+    return [
+      wrap(c.x + gauss() * CONFIG.CLUSTER_SPREAD, CONFIG.WORLD),
+      wrap(c.y + gauss() * CONFIG.CLUSTER_SPREAD, CONFIG.WORLD),
+    ];
+  }
+  return [rng() * CONFIG.WORLD, rng() * CONFIG.WORLD];
+}
+
+// 각 별의 world 좌표 / 크기 / 깊이 산출 (최소 간격 탐색)
+const placed = [];   // {x, y, size}
+const stars = DATA.stars.map((s) => {
+  const range = CONFIG.SIZE[s.type_en] || CONFIG.SIZE.STAR;
+  let size = lerp(range[0], range[1], rng());
+  size *= 0.72 + rng() * 0.56;          // 같은 카테고리 내 ±28% 변동 (다이나믹)
+  size = Math.round(size);
+
+  const clustered = rng() < CONFIG.CLUSTER_RATIO;
+
+  // 최소 간격을 만족하는 첫 후보를 채택, 없으면 이웃과 가장 먼 후보 선택
+  let bx, by, bestScore = -1;
+  for (let k = 0; k < CONFIG.PLACE_CANDIDATES; k++) {
+    const [cx, cy] = samplePos(clustered);
+    let nearest = Infinity, ok = true;
+    for (const p of placed) {
+      const d2 = torusDist2(cx, cy, p.x, p.y);
+      if (d2 < nearest) nearest = d2;
+      const need = (size + p.size) * CONFIG.OVERLAP;   // 허용 최소 중심거리
+      if (d2 < need * need) { ok = false; break; }
+    }
+    if (ok) { bx = cx; by = cy; break; }               // 충분히 떨어짐 → 채택
+    if (nearest > bestScore) { bestScore = nearest; bx = cx; by = cy; }
+  }
+  placed.push({ x: bx, y: by, size });
+
+  // 크기 → 깊이감 (큰 별일수록 가깝고 밝게)
+  const norm = (size - 70) / (360 - 70);  // 0~1 (새 크기 범위 기준)
+  const depth = Math.max(0, Math.min(1, norm));
+
+  return {
+    ...s,
+    x: bx, y: by, size,
+    depth,
+    opacity: 1,                       /* 균일 (전체 디밍은 #world 컨테이너가 담당) */
+    z: 100 + Math.round(depth * 100),
+    el: null,
+    img: null,
+    loaded: false,
+    requested: false,
+    visible: false,
+  };
+});
+
+/* =========================================================================
+   2. RENDER — 별 DOM 생성 (별당 1 엘리먼트, 토러스 wrap 으로 재배치)
+      world(3000) > screen 이므로 한 별은 동시에 최대 1곳만 보임 → 풀링 불필요
+   ========================================================================= */
+const HALF = CONFIG.WORLD / 2;
+const frag = document.createDocumentFragment();
+
+stars.forEach((star) => {
+  const el = document.createElement('div');
+  el.className = 'star';
+  el.style.width = star.size + 'px';
+  el.style.height = star.size + 'px';
+  el.style.zIndex = star.z;
+  /* opacity는 CSS(.star)가 제어: 기본 90% / hover 100% / 그 외 60% */
+
+  const img = document.createElement('img');
+  img.alt = star.title_ko;
+  img.draggable = false;
+  img.addEventListener('load', () => { img.classList.add('loaded'); star.loaded = true; });
+  img.addEventListener('error', () => { el.style.background = 'radial-gradient(circle closest-side at 50% 45%, rgba(40,28,28,0.7), rgba(11,11,17,0) 82%)'; });
+
+  el.appendChild(img);
+
+  // 호버 툴팁 (드래그 중엔 무시)
+  el.addEventListener('mouseenter', (e) => {
+    hoverStar = star;
+    if (stage.classList.contains('dragging')) return;
+    const en = lang === 'en';
+    const sub = en ? (star.sub_en && star.sub_en !== '—' ? star.sub_en : star.object_en)
+                   : (star.sub_ko && star.sub_ko !== '—' ? star.sub_ko : star.object_ko);
+    tipType.textContent = en ? star.type_en : star.type_ko;
+    tipTitle.textContent = en ? star.title_en : star.title_ko;
+    tipSub.textContent = sub;
+    tip.classList.add('show');
+    moveTip(e);
+  });
+  el.addEventListener('mousemove', moveTip);
+  el.addEventListener('mouseleave', () => { if (hoverStar === star) hoverStar = null; tip.classList.remove('show'); });
+
+  star.el = el;
+  star.img = img;
+  frag.appendChild(el);
+});
+world.appendChild(frag);
+
+function moveTip(e) {
+  const pad = 16;
+  let tx = e.clientX + pad;
+  let ty = e.clientY + pad;
+  const r = tip.getBoundingClientRect();
+  if (tx + r.width > screenW - 8) tx = e.clientX - r.width - pad;
+  if (ty + r.height > screenH - 8) ty = e.clientY - r.height - pad;
+  tip.style.left = tx + 'px';
+  tip.style.top = ty + 'px';
+}
+
+const srcOf = (id) => DATA.image_url_template.replace('{id}', id);
+
+/* =========================================================================
+   3. BACKGROUND — 배경 별빛 (캔버스, 시차)
+   ========================================================================= */
+const bgRng = mulberry32(CONFIG.SEED ^ 0x9e3779b9);
+const bgStars = [];
+for (let i = 0; i < CONFIG.BG.COUNT; i++) {
+  bgStars.push({
+    x: bgRng() * CONFIG.BG.WORLD,
+    y: bgRng() * CONFIG.BG.WORLD,
+    r: bgRng() * 1.3 + 0.3,
+    a: bgRng() * 0.6 + 0.2,
+    tw: bgRng() * Math.PI * 2,      // 트윙클 위상
+    tws: 0.4 + bgRng() * 0.8,       // 트윙클 속도
+  });
+}
+
+function drawBackground(time) {
+  ctx.clearRect(0, 0, screenW, screenH);
+  const ox = wrap(camera.x * CONFIG.BG.PARALLAX, CONFIG.BG.WORLD);
+  const oy = wrap(camera.y * CONFIG.BG.PARALLAX, CONFIG.BG.WORLD);
+  const W = CONFIG.BG.WORLD;
+
+  for (const b of bgStars) {
+    // 화면 기준 위치 (토러스 타일링)
+    let sx = wrap(b.x - ox + W / 2, W) - W / 2 + screenW / 2;
+    let sy = wrap(b.y - oy + W / 2, W) - W / 2 + screenH / 2;
+    if (sx < -2 || sx > screenW + 2 || sy < -2 || sy > screenH + 2) {
+      // 화면보다 큰 영역은 인접 타일 한 번 더 보정
+      sx = wrap(sx, W); sy = wrap(sy, W);
+      if (sx > screenW + 2) sx -= W;
+      if (sy > screenH + 2) sy -= W;
+      if (sx < -2 || sx > screenW + 2 || sy < -2 || sy > screenH + 2) continue;
+    }
+    const tw = 0.6 + 0.4 * Math.sin(time * 0.001 * b.tws + b.tw);
+    ctx.beginPath();
+    ctx.arc(sx, sy, b.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255, 250, 240, ' + (b.a * tw).toFixed(3) + ')';
+    ctx.fill();
+  }
+}
+
+/* =========================================================================
+   4. RENDER LOOP — 카메라 적용 + 토러스 wrap + 가시 영역만 이미지 로드
+   ========================================================================= */
+function render(time) {
+  const cx = screenW / 2;
+  const cy = screenH / 2;
+  const m = CONFIG.CULL_MARGIN;
+
+  for (const star of stars) {
+    // 카메라 기준 상대좌표 → [-HALF, HALF] 로 wrap (가장 가까운 타일 1개)
+    let rx = wrap(star.x - camera.x + HALF, CONFIG.WORLD) - HALF;
+    let ry = wrap(star.y - camera.y + HALF, CONFIG.WORLD) - HALF;
+    const sx = rx + cx - star.size / 2;
+    const sy = ry + cy - star.size / 2;
+
+    const onScreen =
+      sx > -star.size - m && sx < screenW + m &&
+      sy > -star.size - m && sy < screenH + m;
+
+    if (onScreen) {
+      star.el.style.transform = 'translate3d(' + sx.toFixed(1) + 'px,' + sy.toFixed(1) + 'px,0)';
+      if (!star.visible) { star.el.style.visibility = 'visible'; star.visible = true; }
+      // lazy: 처음 보일 때만 이미지 요청
+      if (!star.requested) { star.requested = true; star.img.src = srcOf(star.id); }
+    } else if (star.visible) {
+      star.el.style.visibility = 'hidden';
+      star.visible = false;
+    }
+  }
+}
+
+const HOME_WANDER = 75;   // Home에서 오늘의 별 주변을 떠다니는 반경(px) — 클수록 배경이 많이 움직임
+
+function tick(time) {
+  if (!dragging) {
+    if (!entered) {
+      // Home: 오늘의 별 좌표를 '중심으로' 미세 부유 (팬/이동 없이 이미 그 좌표)
+      const hc = homePick || { x: HALF, y: HALF };
+      camera.x = hc.x + Math.cos(time * 0.00014) * HOME_WANDER;
+      camera.y = hc.y + Math.sin(time * 0.00018) * HOME_WANDER;
+    } else if (Math.abs(velocity.x) > CONFIG.VEL_STOP || Math.abs(velocity.y) > CONFIG.VEL_STOP) {
+      // 관성
+      camera.x += velocity.x;
+      camera.y += velocity.y;
+      velocity.x *= CONFIG.FRICTION;
+      velocity.y *= CONFIG.FRICTION;
+    } else {
+      // 정지 시 아주 미세한 자동 표류
+      velocity.x = velocity.y = 0;
+      camera.x += CONFIG.IDLE_DRIFT * Math.cos(time * 0.00006);
+      camera.y += CONFIG.IDLE_DRIFT * Math.sin(time * 0.00008);
+    }
+  }
+  camera.x = wrap(camera.x, CONFIG.WORLD);
+  camera.y = wrap(camera.y, CONFIG.WORLD);
+
+  // Home 메인 이미지 마우스 패럴랙스 (스무스 보간)
+  if (!entered) {
+    pxCur.x += (pxTarget.x - pxCur.x) * PARALLAX_EASE;
+    pxCur.y += (pxTarget.y - pxCur.y) * PARALLAX_EASE;
+    homeWrap.style.transform =
+      `translate(-50%, -50%) translate(${pxCur.x.toFixed(2)}px, ${pxCur.y.toFixed(2)}px)`;
+  }
+
+  drawBackground(time);
+  render(time);
+  requestAnimationFrame(tick);
+}
+
+/* =========================================================================
+   5. INTERACTION — 포인터 드래그 + 관성
+   ========================================================================= */
+let dragging = false;
+let last = { x: 0, y: 0 };
+let moved = 0;
+
+stage.addEventListener('pointerdown', (e) => {
+  if (!entered) return;            // 인트로 동안 드래그 잠금
+  tapStar = hoverStar;             // capture 전에 대상 별 보존
+  dragging = true;
+  stage.classList.add('dragging');
+  stage.setPointerCapture(e.pointerId);
+  last.x = e.clientX;
+  last.y = e.clientY;
+  velocity.x = velocity.y = 0;
+  moved = 0;
+  tip.classList.remove('show');
+});
+
+stage.addEventListener('pointermove', (e) => {
+  if (!dragging) return;
+  const dx = e.clientX - last.x;
+  const dy = e.clientY - last.y;
+  last.x = e.clientX;
+  last.y = e.clientY;
+  moved += Math.abs(dx) + Math.abs(dy);
+
+  // 핸드 도구: 드래그 방향과 반대로 카메라 이동
+  camera.x -= dx;
+  camera.y -= dy;
+
+  // 관성용 속도 (평활)
+  velocity.x = lerp(velocity.x, -dx, CONFIG.VEL_SMOOTH);
+  velocity.y = lerp(velocity.y, -dy, CONFIG.VEL_SMOOTH);
+});
+
+function endDrag(e) {
+  if (!dragging) return;
+  dragging = false;
+  stage.classList.remove('dragging');
+  try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+}
+stage.addEventListener('pointerup', (e) => {
+  const wasTap = (moved < 6);
+  endDrag(e);
+  if (wasTap && tapStar) openDetail(tapStar);   // 이동 거의 없으면 클릭 = 상세 열기
+  tapStar = null;
+});
+stage.addEventListener('pointercancel', endDrag);
+stage.addEventListener('pointerleave', endDrag);
+
+/* ───── 리사이즈 대응 ───── */
+function resize() {
+  screenW = window.innerWidth;
+  screenH = window.innerHeight;
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  bgCanvas.width = screenW * dpr;
+  bgCanvas.height = screenH * dpr;
+  bgCanvas.style.width = screenW + 'px';
+  bgCanvas.style.height = screenH + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener('resize', resize);
+resize();
+
+/* ───── 인트로 → Explore 진입 ───── */
+function enterExplore() {
+  if (entered) return;
+  entered = true;
+  document.body.classList.add('entered');   // 코너 UI / grab 커서 활성
+
+  // 카메라는 이미 오늘의 별 좌표에 있음(팬 없음) → 그대로 표류 시작
+  // 메인 이미지: 그 별 크기로 축소하며 중앙에 (그 후 인트로와 함께 페이드)
+  const w = homeStar.getBoundingClientRect().width || 1;
+  const scale = homePick ? Math.max(0.12, Math.min(1, homePick.size / w)) : 0.25;
+  homeWrap.style.transition = 'transform 950ms cubic-bezier(0.6, 0, 0.2, 1)';
+  homeWrap.style.transform = `translate(-50%, -50%) scale(${scale.toFixed(3)})`;
+
+  intro.classList.add('exit');              // 메뉴↑ / 타이틀 제자리 페이드 / 크레딧↓
+  hint.classList.add('show');               // 드래그 안내 등장 (초기)
+  clearTimeout(introHideTimer);
+  introHideTimer = setTimeout(() => { intro.style.display = 'none'; }, 1100);
+}
+
+/* Explore → Home (인트로 복귀) */
+function exitToHome() {
+  if (!entered) return;
+  entered = false;
+  document.body.classList.remove('entered');   // 코너 UI/별 커서 비활성
+  topnav.classList.remove('show');
+  hint.classList.remove('show');
+  clearTimeout(hintTimer);
+  clearTimeout(introHideTimer);
+
+  intro.style.display = '';                     // 다시 표시
+  void intro.offsetWidth;                       // reflow → opacity 트랜지션 재생
+  intro.classList.remove('exit');              // 메뉴/타이틀/크레딧 원위치 + 페이드 인
+
+  homeWrap.style.transition = '';              // 인라인 축소 해제 → tick 패럴랙스가 원래 크기로 복귀
+}
+
+/* 내비 클릭 → 페이지 전환 (Home / Explore) */
+function handleNav(e) {
+  const a = e.target.closest('a[data-page]');
+  if (!a) return;
+  e.preventDefault();
+  const page = a.dataset.page;
+  if (page === 'explore') { closeArchive(); closeAbout(); enterExplore(); }
+  else if (page === 'home') { closeArchive(); closeAbout(); exitToHome(); }
+  else if (page === 'archive') { closeAbout(); openArchive(); }
+  else if (page === 'about') { closeArchive(); openAbout(); }
+}
+document.getElementById('start').addEventListener('click', enterExplore);
+document.getElementById('nav').addEventListener('click', handleNav);
+topnav.addEventListener('click', handleNav);
+
+/* ═════════ 별 상세 + 일기 + Archive ═════════ */
+const ARCHIVE_KEY = 'todays-star-archive';
+const detail = document.getElementById('detail');
+const archive = document.getElementById('archive');
+const about = document.getElementById('about');
+const toast = document.getElementById('toast');
+const dImg = document.getElementById('d-img');
+const dType = document.getElementById('d-type');
+const dTitle = document.getElementById('d-title');
+const dObject = document.getElementById('d-object');
+const dDist = document.getElementById('d-dist');
+const dDesc = document.getElementById('d-desc');
+const dCredit = document.getElementById('d-credit');
+const dDate = document.getElementById('d-date');
+const dDiary = document.getElementById('d-diary');
+const dNick = document.getElementById('d-nick');
+const dPw = document.getElementById('d-pw');
+const calGrid = document.getElementById('cal-grid');
+const calRight = document.getElementById('cal-right');
+const calMonthEl = document.getElementById('cal-month');
+const calWeekdaysEl = document.getElementById('cal-weekdays');
+let calYear = null, calMonth = null;        // 0-indexed month
+let calSelected = null;                       // 'YYYY-MM-DD' or null
+const byId = Object.fromEntries(stars.map(s => [s.id, s]));
+let toastTimer = null;
+
+const L = {
+  distK:  { ko: '거리', en: 'Distance' },
+  descK:  { ko: '설명', en: 'About' },
+  creditK:{ ko: '크레딧', en: 'Credit' },
+  placeholder: { ko: '오늘의 기분이나 있었던 일을 적어보세요…', en: 'Write about your mood or what happened today…' },
+  save:   { ko: '저장하기', en: 'Save' },
+  saved:  { ko: '저장되었습니다', en: 'Saved' },
+  confirmDel: { ko: '이 기록을 삭제할까요?', en: 'Delete this entry?' },
+  arTitle:{ ko: '나의 별 일기', en: 'My Star Diary' },
+  arSub:  { ko: '저장한 별과 그날의 기록', en: 'Saved stars and the day’s notes' },
+  empty:  { ko: '아직 저장한 별이 없어요.', en: 'No saved stars yet.' },
+  del:    { ko: '삭제', en: 'Delete' },
+  nickPh: { ko: '닉네임', en: 'Nickname' },
+  pwPh:   { ko: '비밀번호 4자리', en: '4-digit PIN' },
+  needNick:{ ko: '닉네임을 입력해 주세요.', en: 'Please enter a nickname.' },
+  needPw: { ko: '비밀번호 4자리를 입력해 주세요.', en: 'Please enter a 4-digit PIN.' },
+  pwPrompt:{ ko: '삭제하려면 비밀번호 4자리를 입력하세요.', en: 'Enter the 4-digit PIN to delete.' },
+  pwPromptEdit:{ ko: '수정하려면 비밀번호 4자리를 입력하세요.', en: 'Enter the 4-digit PIN to edit.' },
+  pwWrong:{ ko: '비밀번호가 일치하지 않습니다.', en: 'Incorrect PIN.' },
+  update: { ko: '수정하기', en: 'Update' },
+  updated:{ ko: '수정되었습니다', en: 'Updated' },
+  confirm:{ ko: '확인', en: 'Confirm' },
+  cancel: { ko: '취소', en: 'Cancel' },
+};
+const ABOUT = {
+  ko: { title: 'Today’star', body:
+`<p>‘Today’s star’는 하루 한 번 무한한 우주를 떠다니며 마음에 드는 별을 만나고, 그날의 기분과 이야기를 적어 나만의 별 일기를 모으는 인터랙티브 다이어리입니다.</p>
+<p>드래그로 우주를 탐험하고, 별을 클릭해 정보를 읽고, 그날의 기록을 남겨 보세요. 저장한 별들은 Archive에서 다시 볼 수 있습니다.</p>
+<div class="about-credits"><div>이미지 · ESA/Hubble Space Telescope “Top 100”<br>Credit: NASA, ESA and partners · CC BY 4.0</div></div>
+<div class="about-made">made by @saeueon</div>` },
+  en: { title: 'Today’star', body:
+`<p>“Today’s star” is an interactive diary — drift through an endless universe once a day, meet a star you love, and write down your mood and story to collect your own star journal.</p>
+<p>Drag to explore, click a star to read about it, and leave a note for the day. Saved stars live in your Archive.</p>
+<div class="about-credits"><div>Images · ESA/Hubble Space Telescope “Top 100”<br>Credit: NASA, ESA and partners · CC BY 4.0</div></div>
+<div class="about-made">made by @saeueon</div>` },
+};
+
+function esc(s){ return (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function fmtDate(d){
+  return lang === 'en'
+    ? d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
+    : `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
+}
+function loadArchive(){ try { return JSON.parse(localStorage.getItem(ARCHIVE_KEY)) || []; } catch(e){ return []; } }
+function saveArchiveArr(a){ localStorage.setItem(ARCHIVE_KEY, JSON.stringify(a)); }
+function makeEid(){ return Date.now() + '-' + Math.random().toString(36).slice(2, 7); }
+function updatePanelOpen(){
+  document.body.classList.toggle('panel-open',
+    detail.classList.contains('show') || archive.classList.contains('show') || about.classList.contains('show'));
+}
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 1900);
+}
+const saveToast = document.getElementById('save-toast');
+const saveToastText = document.getElementById('save-toast-text');
+let saveToastTimer;
+function showSaveToast(msg){
+  saveToastText.textContent = msg;
+  saveToast.classList.add('show');
+  clearTimeout(saveToastTimer);
+  saveToastTimer = setTimeout(() => saveToast.classList.remove('show'), 1700);
+}
+
+function fillDetailInfo(s){
+  const en = lang === 'en';
+  dImg.src = srcOf(s.id);
+  dType.textContent = en ? s.type_en : s.type_ko;
+  dTitle.textContent = en ? s.title_en : s.title_ko;
+  dObject.textContent = en ? s.object_en : s.object_ko;
+  dDist.textContent = (en ? s.distance_en : s.distance_ko) || '—';
+  dDesc.textContent = (en ? s.desc_en : s.desc_ko) || '—';
+  dCredit.textContent = s.credit || '—';
+  document.getElementById('d-k-dist').textContent = L.distK[lang];
+  document.getElementById('d-k-desc').textContent = L.descK[lang];
+  document.getElementById('d-k-credit').textContent = L.creditK[lang];
+  dDiary.placeholder = L.placeholder[lang];
+  dNick.placeholder = L.nickPh[lang];
+  dPw.placeholder = L.pwPh[lang];
+  document.getElementById('d-save').textContent = editingEid ? L.update[lang] : L.save[lang];
+}
+function openDetail(s){
+  currentStar = s;
+  editingEid = null;
+  editingDate = null;
+  fillDetailInfo(s);
+  dDate.textContent = fmtDate(new Date());
+  dDiary.value = '';
+  dNick.value = '';
+  dPw.value = '';
+  detail.classList.add('show');
+  updatePanelOpen();
+  setTimeout(() => dDiary.focus(), 320);
+}
+// Archive 기록을 상세 패널에서 열어 수정
+function openEntryEdit(entry){
+  const s = byId[entry.id];
+  if (!s) return;
+  currentStar = s;
+  editingEid = entry.eid;
+  editingDate = entry.date;
+  fillDetailInfo(s);
+  dDate.textContent = fmtDate(new Date(entry.date));
+  dDiary.value = entry.text || '';
+  dNick.value = entry.nick || '';
+  dPw.value = entry.pw || '';
+  detail.classList.add('show');
+  updatePanelOpen();
+  setTimeout(() => dDiary.focus(), 320);
+}
+function closeDetail(){ detail.classList.remove('show'); currentStar = null; editingEid = null; editingDate = null; updatePanelOpen(); }
+function saveDiary(){
+  if (!currentStar) return;
+  const text = dDiary.value.trim();
+  if (!text) { dDiary.focus(); return; }
+  const nick = dNick.value.trim();
+  if (!nick) { showToast(L.needNick[lang]); dNick.focus(); return; }
+  const pw = dPw.value.trim();
+  if (!/^\d{4}$/.test(pw)) { showToast(L.needPw[lang]); dPw.focus(); return; }
+  const arr = loadArchive();
+  if (editingEid) {
+    const idx = arr.findIndex(en => en.eid === editingEid);
+    if (idx !== -1) arr[idx] = { ...arr[idx], text, nick, pw };   // 기존 기록 수정 (eid·날짜·별 유지)
+  } else {
+    arr.push({ eid: makeEid(), id: currentStar.id, date: new Date().toISOString(), text, nick, pw });
+  }
+  const wasEditing = !!editingEid;
+  saveArchiveArr(arr);
+  closeDetail();
+  showSaveToast(wasEditing ? L.updated[lang] : L.saved[lang]);
+  if (archive.classList.contains('show')) renderArchive();
+}
+
+function dayKey(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function keyFromIso(iso){ return dayKey(new Date(iso)); }
+
+function renderArchive(){
+  const en = lang === 'en';
+  document.getElementById('ar-title').textContent = L.arTitle[lang];
+  document.getElementById('ar-sub').textContent = L.arSub[lang];
+
+  const arr = loadArchive();
+  let changed = false;
+  arr.forEach(e => { if (!e.eid) { e.eid = makeEid(); changed = true; } });
+  if (changed) saveArchiveArr(arr);
+
+  if (calYear == null) { const now = new Date(); calYear = now.getFullYear(); calMonth = now.getMonth(); }
+
+  // 일자별로 일기 묶기
+  const byDay = {};
+  arr.forEach(e => { const k = keyFromIso(e.date); (byDay[k] = byDay[k] || []).push(e); });
+
+  // 월 헤더
+  calMonthEl.textContent = en
+    ? new Date(calYear, calMonth, 1).toLocaleDateString('en-US', { year:'numeric', month:'long' })
+    : `${calYear}년 ${calMonth+1}월`;
+
+  // 요일
+  const wd = en ? ['S','M','T','W','T','F','S'] : ['일','월','화','수','목','금','토'];
+  calWeekdaysEl.innerHTML = wd.map(w => `<span>${w}</span>`).join('');
+
+  // 42 셀 그리드 (6주)
+  const startDow = new Date(calYear, calMonth, 1).getDay();
+  const dim = new Date(calYear, calMonth + 1, 0).getDate();
+  const cells = [];
+  for (let i = startDow - 1; i >= 0; i--) {
+    const d = new Date(calYear, calMonth, -i);
+    cells.push({ date: d, muted: true });
+  }
+  for (let i = 1; i <= dim; i++) cells.push({ date: new Date(calYear, calMonth, i), muted: false });
+  let trail = 1;
+  while (cells.length < 42) { cells.push({ date: new Date(calYear, calMonth + 1, trail++), muted: true }); }
+
+  const today = dayKey(new Date());
+  calGrid.innerHTML = cells.map(c => {
+    const k = dayKey(c.date);
+    const entries = c.muted ? [] : (byDay[k] || []);
+    let mark = '';
+    if (entries.length === 1) mark = `<div class="cal-mark"></div>`;
+    else if (entries.length > 1) mark = `<div class="cal-mark multi">·${entries.length}·</div>`;
+    const cls = [
+      'cal-cell',
+      c.muted ? 'muted' : '',
+      (!c.muted && k === today) ? 'today' : '',
+      (!c.muted && k === calSelected) ? 'selected' : '',
+    ].filter(Boolean).join(' ');
+    return `<div class="${cls}" data-key="${k}" data-muted="${c.muted}">
+      <div class="cal-day">${c.date.getDate()}</div>${mark}
+    </div>`;
+  }).join('');
+
+  renderDayPanel();
+}
+
+function renderDayPanel(){
+  const en = lang === 'en';
+  if (!calSelected) {
+    calRight.innerHTML = `<div class="day-empty">${en ? 'Pick a day to see its star.' : '날짜를 선택하면 그날의 별이 보입니다.'}</div>`;
+    return;
+  }
+  const arr = loadArchive();
+  const entries = arr.filter(e => keyFromIso(e.date) === calSelected)
+    .sort((a, b) => b.date.localeCompare(a.date));
+  const [y, m, d] = calSelected.split('-').map(Number);
+  const heading = en
+    ? new Date(y, m-1, d).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
+    : `${y}년 ${m}월 ${d}일`;
+  if (!entries.length) {
+    calRight.innerHTML = `<div class="day-head">${esc(heading)}</div>
+      <div class="day-empty">${en ? 'No entry on this day.' : '이 날에는 기록이 없어요.'}</div>`;
+    return;
+  }
+  calRight.innerHTML = `<div class="day-head">${esc(heading)}</div>` + entries.map(e => {
+    const s = byId[e.id] || {};
+    const title = en ? (s.title_en || e.id) : (s.title_ko || e.id);
+    const type = en ? (s.type_en || '') : (s.type_ko || '');
+    return `<div class="day-entry" data-eid="${e.eid}" role="button" tabindex="0">
+      <img class="de-img" src="${s.id ? srcOf(s.id) : ''}" alt="" />
+      <div class="de-body">
+        ${e.nick ? `<div class="de-meta">${esc(e.nick)}</div>` : ''}
+        <div class="de-title">${esc(title)}</div>
+        <div class="de-type">${esc(type)}</div>
+        <p class="de-text">${esc(e.text)}</p>
+      </div>
+      <button class="de-del" data-eid="${e.eid}" title="${L.del[lang]}" aria-label="${L.del[lang]}">×</button>
+    </div>`;
+  }).join('');
+}
+
+function deleteEntry(eid){ saveArchiveArr(loadArchive().filter(e => e.eid !== eid)); renderArchive(); }
+
+function openArchive(){
+  const arr = loadArchive();
+  if (arr.length) {
+    const latest = arr.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+    const d = new Date(latest.date);
+    calYear = d.getFullYear(); calMonth = d.getMonth();
+    calSelected = dayKey(d);
+  } else {
+    const now = new Date();
+    calYear = now.getFullYear(); calMonth = now.getMonth();
+    calSelected = dayKey(now);
+  }
+  renderArchive();
+  archive.classList.add('show');
+  updatePanelOpen();
+}
+function closeArchive(){ archive.classList.remove('show'); updatePanelOpen(); }
+
+function renderAbout(){
+  document.getElementById('ab-title').textContent = ABOUT[lang].title;
+  document.getElementById('ab-body').innerHTML = ABOUT[lang].body;
+}
+function openAbout(){ renderAbout(); about.classList.add('show'); updatePanelOpen(); }
+function closeAbout(){ about.classList.remove('show'); updatePanelOpen(); }
+
+document.getElementById('d-save').addEventListener('click', saveDiary);
+document.getElementById('detail-close').addEventListener('click', closeDetail);
+document.getElementById('archive-close').addEventListener('click', closeArchive);
+document.getElementById('about-close').addEventListener('click', closeAbout);
+detail.addEventListener('pointerdown', (e) => { if (e.target === detail) closeDetail(); });   // 바깥 클릭
+calGrid.addEventListener('click', (e) => {
+  const cell = e.target.closest('.cal-cell');
+  if (!cell || cell.dataset.muted === 'true') return;
+  calSelected = cell.dataset.key;
+  renderArchive();
+});
+document.getElementById('cal-prev').addEventListener('click', () => {
+  calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderArchive();
+});
+document.getElementById('cal-next').addEventListener('click', () => {
+  calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderArchive();
+});
+calRight.addEventListener('click', (e) => {
+  const delBtn = e.target.closest('.de-del');
+  if (delBtn) { deleteEntryFlow(delBtn.dataset.eid); return; }
+  const entry = e.target.closest('.day-entry');
+  if (entry) openEntryForEdit(entry.dataset.eid);
+});
+calRight.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const entry = e.target.closest('.day-entry');
+  if (!entry) return;
+  e.preventDefault();
+  openEntryForEdit(entry.dataset.eid);
+});
+async function deleteEntryFlow(eid){
+  const entry = loadArchive().find(en => en.eid === eid);
+  if (!entry) return;
+  if (entry.pw) {
+    // 비밀번호로 보호된 기록 → 4자리 입력 후 일치해야 삭제
+    const ok = await askPin({ title: L.del[lang], desc: L.pwPrompt[lang], verify: pin => pin === entry.pw });
+    if (!ok) return;
+  } else {
+    // 비밀번호 없이 저장된 예전 기록 → 확인만
+    const ok = await confirmDialog({ title: L.del[lang], desc: L.confirmDel[lang], okLabel: L.del[lang], danger: true });
+    if (!ok) return;
+  }
+  deleteEntry(eid);
+}
+async function openEntryForEdit(eid){
+  const entry = loadArchive().find(en => en.eid === eid);
+  if (!entry) return;
+  if (entry.pw) {
+    // 비밀번호로 보호된 기록 → 4자리 입력 후 일치해야 수정 가능
+    const ok = await askPin({ title: L.update[lang], desc: L.pwPromptEdit[lang], verify: pin => pin === entry.pw });
+    if (!ok) return;
+  }
+  openEntryEdit(entry);
+}
+
+/* ───── 비밀번호 / 확인 모달 ───── */
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalDesc = document.getElementById('modal-desc');
+const modalInput = document.getElementById('modal-input');
+const modalError = document.getElementById('modal-error');
+const modalCancel = document.getElementById('modal-cancel');
+const modalConfirm = document.getElementById('modal-confirm');
+let modalState = null;   // { mode:'pin'|'confirm', verify, resolve }
+
+function closeModal(result){
+  if (!modalState) return;
+  const { resolve } = modalState;
+  modalState = null;
+  modal.classList.remove('show');
+  modalError.classList.remove('show');
+  modalInput.value = '';
+  resolve(result);
+}
+function showModalError(msg){
+  modalError.textContent = msg;
+  modalError.classList.add('show');
+  modalInput.focus();
+  modalInput.select();
+}
+function onModalConfirm(){
+  if (!modalState) return;
+  if (modalState.mode === 'pin') {
+    const pin = modalInput.value.trim();
+    if (!/^\d{4}$/.test(pin)) { showModalError(L.needPw[lang]); return; }
+    if (modalState.verify && !modalState.verify(pin)) { showModalError(L.pwWrong[lang]); return; }
+    closeModal(pin);
+  } else {
+    closeModal(true);
+  }
+}
+function askPin({ title, desc, verify }){
+  modalState = { mode: 'pin', verify, resolve: null };
+  const p = new Promise(res => { modalState.resolve = res; });
+  modalTitle.textContent = title;
+  modalDesc.textContent = desc;
+  modalError.classList.remove('show');
+  modalInput.style.display = '';
+  modalInput.value = '';
+  modalConfirm.textContent = L.confirm[lang];
+  modalConfirm.classList.remove('danger');
+  modalCancel.textContent = L.cancel[lang];
+  modal.classList.add('show');
+  setTimeout(() => modalInput.focus(), 120);
+  return p;
+}
+function confirmDialog({ title, desc, okLabel, danger }){
+  modalState = { mode: 'confirm', resolve: null };
+  const p = new Promise(res => { modalState.resolve = res; });
+  modalTitle.textContent = title;
+  modalDesc.textContent = desc;
+  modalError.classList.remove('show');
+  modalInput.style.display = 'none';
+  modalConfirm.textContent = okLabel || L.confirm[lang];
+  modalConfirm.classList.toggle('danger', !!danger);
+  modalCancel.textContent = L.cancel[lang];
+  modal.classList.add('show');
+  setTimeout(() => modalConfirm.focus(), 120);
+  return p;
+}
+modalConfirm.addEventListener('click', onModalConfirm);
+modalCancel.addEventListener('click', () => closeModal(null));
+modal.addEventListener('pointerdown', (e) => { if (e.target === modal) closeModal(null); });
+modalInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); onModalConfirm(); } });
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (modal.classList.contains('show')) closeModal(null);
+  else if (detail.classList.contains('show')) closeDetail();
+  else if (archive.classList.contains('show')) closeArchive();
+  else if (about.classList.contains('show')) closeAbout();
+});
+
+/* ───── 언어 토글 (KO / EN) ───── */
+const I18N = {
+  subtitle: {
+    ko: '하루 한 번, 우주를 여행하고 나만의 별을 찾는 시간',
+    en: 'Once a day, travel the universe and find your own star',
+  },
+  hint: {
+    ko: '드래그하여 우주를 탐험하세요',
+    en: 'Drag to explore the universe',
+  },
+};
+const subtitleEl = document.querySelector('#intro .subtitle');
+const hintTextEl = document.querySelector('#hint .hint-text');
+const langLabels = document.querySelectorAll('.lang-label');
+function applyLang() {
+  subtitleEl.textContent = I18N.subtitle[lang];
+  hintTextEl.textContent = I18N.hint[lang];
+  langLabels.forEach((el) => { el.textContent = lang.toUpperCase(); });
+  document.documentElement.lang = lang;
+  // 열려 있는 패널도 갱신 (일기 입력은 보존)
+  if (detail.classList.contains('show') && currentStar) { fillDetailInfo(currentStar); dDate.textContent = fmtDate(new Date(editingDate || Date.now())); }
+  if (archive.classList.contains('show')) renderArchive();
+  if (about.classList.contains('show')) renderAbout();
+}
+function toggleLang() { lang = lang === 'ko' ? 'en' : 'ko'; applyLang(); }
+document.getElementById('lang').addEventListener('click', toggleLang);
+document.getElementById('lang-explore').addEventListener('click', toggleLang);
+applyLang();
+
+/* ───── 커서가 일정 시간 멈추면 하단 안내 다시 표시 (Explore) ───── */
+const IDLE_HINT_MS = 5000;
+let hintTimer = null;
+function bumpIdleHint() {
+  if (!entered) return;
+  hint.classList.remove('show');            // 움직이면 숨김
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(() => hint.classList.add('show'), IDLE_HINT_MS);  // 멈추면 다시
+}
+window.addEventListener('mousemove', bumpIdleHint);
+stage.addEventListener('pointerdown', bumpIdleHint);
+
+/* ───── 커스텀 별 커서 추적 + 상단 가장자리 hover로 메뉴 표시 ───── */
+window.addEventListener('mousemove', (e) => {
+  cursorStar.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+  if (entered) {
+    const atTop = e.clientY < 90;          // 화면 상단 근처 → 메뉴 + 언어선택 함께 등장
+    topnav.classList.toggle('show', atTop);
+    langExplore.classList.toggle('show', atTop);
+  }
+});
+
+/* ───── Home 배경: 랜덤 천체 1개 (오늘의 별) ───── */
+(function pickHomeStar() {
+  const rich = stars.filter(s => ['GALAXY', 'NEBULA', 'COSMOLOGY', 'CLUSTER'].includes(s.type_en));
+  const pool = rich.length ? rich : stars;
+  homePick = pool[(Math.random() * pool.length) | 0];
+  homeStar.src = srcOf(homePick.id);
+})();
+
+/* ───── 시작 ───── */
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
