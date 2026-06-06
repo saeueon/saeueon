@@ -5,8 +5,7 @@
 .claude/
 
 # Large source-image originals (not used at runtime; app uses images_soft/)
-images/*
-!images/Today'star.svg
+images/
 
 # Python
 __pycache__/
