@@ -468,22 +468,6 @@
   .archive-head .ey { font-size: 12px; letter-spacing: 0.3em; color: var(--fg-3); }
   .archive-head h2 { font-size: 40px; font-weight: 600; color: var(--fg); margin-top: 12px; }
   .archive-head .sub { font-size: 14px; color: var(--fg-2); margin-top: 10px; }
-  .cloud-sync { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; }
-  .cloud-input {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px; color: var(--fg); font-family: inherit; font-size: 13px; padding: 9px 12px;
-    transition: border-color 200ms ease;
-  }
-  .cloud-input::placeholder { color: rgba(255,255,255,0.3); }
-  .cloud-input:focus { outline: none; border-color: rgba(255,255,255,0.3); }
-  .cloud-pin { width: 104px; letter-spacing: 0.2em; }
-  .cloud-btn {
-    padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.06); color: var(--fg); font-family: inherit; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: background 200ms ease;
-  }
-  .cloud-btn:hover { background: rgba(255,255,255,0.12); }
-  .cloud-status { font-size: 12px; color: var(--fg-2); }
   #archive .panel-close { position: fixed; }   /* 스크롤해도 우상단 고정 */
 
   /* Archive — 달력 레이아웃 */
@@ -747,12 +731,6 @@
         <div class="ey">ARCHIVE</div>
         <h2 id="ar-title">나의 별 일기</h2>
         <div class="sub" id="ar-sub">저장한 별과 그날의 기록</div>
-        <div class="cloud-sync">
-          <input id="sync-nick" class="cloud-input" type="text" maxlength="20" placeholder="닉네임" autocomplete="off" />
-          <input id="sync-pin" class="cloud-input cloud-pin" type="password" inputmode="numeric" maxlength="4" placeholder="비번 4자리" autocomplete="off" />
-          <button id="sync-load" class="cloud-btn" type="button">내 기록 불러오기</button>
-          <span id="sync-status" class="cloud-status"></span>
-        </div>
       </div>
       <div class="cal-wrap">
         <div class="cal-left">
@@ -1597,13 +1575,9 @@ function openArchive(){
   renderArchive();
   archive.classList.add('show');
   updatePanelOpen();
-  // 신원이 기억돼 있으면 클라우드에서 자동 동기화
+  // 신원(저장 시 쓴 닉네임+비번)이 기억돼 있으면 클라우드에서 조용히 자동 동기화
   const _id = getIdentity();
-  if (_id) {
-    const ni = document.getElementById('sync-nick'), pi = document.getElementById('sync-pin');
-    if (ni) ni.value = _id.nick; if (pi) pi.value = _id.pin;
-    pullFromCloud(_id.nick, _id.pin).then(n => { if (n) renderArchive(); });
-  }
+  if (_id) pullFromCloud(_id.nick, _id.pin).then(n => { if (n) renderArchive(); });
 }
 function closeArchive(){ archive.classList.remove('show'); updatePanelOpen(); }
 
@@ -1621,20 +1595,7 @@ document.getElementById('about-close').addEventListener('click', closeAbout);
 detail.addEventListener('pointerdown', (e) => { if (e.target === detail) closeDetail(); });   // 바깥 클릭
 archive.addEventListener('pointerdown', (e) => { if (!e.target.closest('.archive-inner')) closeArchive(); });  // 콘텐츠 바깥 클릭
 about.addEventListener('pointerdown', (e) => { if (!e.target.closest('.about-inner')) closeAbout(); });        // 콘텐츠 바깥 클릭
-// 클라우드 — 닉네임+비번으로 다른 기기 기록 불러오기
-document.getElementById('sync-load').addEventListener('click', async () => {
-  const statusEl = document.getElementById('sync-status');
-  const nick = document.getElementById('sync-nick').value.trim();
-  const pin = document.getElementById('sync-pin').value.trim();
-  if (!nick || !/^\d{4}$/.test(pin)) { statusEl.textContent = '닉네임과 비번 4자리를 입력하세요'; return; }
-  if (!sb) { statusEl.textContent = '클라우드에 연결할 수 없어요'; return; }
-  statusEl.textContent = '불러오는 중…';
-  setIdentity(nick, pin);
-  const n = await pullFromCloud(nick, pin);
-  renderArchive();
-  statusEl.textContent = n ? `${n}개 기록을 불러왔어요` : '해당 닉네임/비번의 기록이 없어요';
-});
-migrateLocalToCloud();   // 기존 로컬 기록 1회 클라우드 업로드
+migrateLocalToCloud();   // 기존 로컬 기록 1회 클라우드 업로드 (백그라운드)
 calGrid.addEventListener('click', (e) => {
   const cell = e.target.closest('.cal-cell');
   if (!cell || cell.dataset.muted === 'true') return;
