@@ -286,8 +286,8 @@
   @keyframes introFade { from { opacity: 0; } }
 
   #hint {
-    bottom: 30px; left: 50%;
-    transform: translateX(-50%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 12.5px;
     letter-spacing: 0.05em;
     color: var(--fg-2);
@@ -468,6 +468,22 @@
   .archive-head .ey { font-size: 12px; letter-spacing: 0.3em; color: var(--fg-3); }
   .archive-head h2 { font-size: 40px; font-weight: 600; color: var(--fg); margin-top: 12px; }
   .archive-head .sub { font-size: 14px; color: var(--fg-2); margin-top: 10px; }
+  .cloud-sync { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; }
+  .cloud-input {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; color: var(--fg); font-family: inherit; font-size: 13px; padding: 9px 12px;
+    transition: border-color 200ms ease;
+  }
+  .cloud-input::placeholder { color: rgba(255,255,255,0.3); }
+  .cloud-input:focus { outline: none; border-color: rgba(255,255,255,0.3); }
+  .cloud-pin { width: 104px; letter-spacing: 0.2em; }
+  .cloud-btn {
+    padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06); color: var(--fg); font-family: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: background 200ms ease;
+  }
+  .cloud-btn:hover { background: rgba(255,255,255,0.12); }
+  .cloud-status { font-size: 12px; color: var(--fg-2); }
   #archive .panel-close { position: fixed; }   /* 스크롤해도 우상단 고정 */
 
   /* Archive — 달력 레이아웃 */
@@ -731,6 +747,12 @@
         <div class="ey">ARCHIVE</div>
         <h2 id="ar-title">나의 별 일기</h2>
         <div class="sub" id="ar-sub">저장한 별과 그날의 기록</div>
+        <div class="cloud-sync">
+          <input id="sync-nick" class="cloud-input" type="text" maxlength="20" placeholder="닉네임" autocomplete="off" />
+          <input id="sync-pin" class="cloud-input cloud-pin" type="password" inputmode="numeric" maxlength="4" placeholder="비번 4자리" autocomplete="off" />
+          <button id="sync-load" class="cloud-btn" type="button">내 기록 불러오기</button>
+          <span id="sync-status" class="cloud-status"></span>
+        </div>
       </div>
       <div class="cal-wrap">
         <div class="cal-left">
@@ -779,6 +801,7 @@
   <!-- 저장 완료 (Explore 중앙) -->
   <div id="save-toast"><span class="st-star"></span><span id="save-toast-text"></span></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* =========================================================================
    Today's Star — Explore Page Prototype
@@ -1277,7 +1300,7 @@ const byId = Object.fromEntries(stars.map(s => [s.id, s]));
 let toastTimer = null;
 
 const L = {
-  distK:  { ko: '거리', en: 'Distance' },
+  distK:  { ko: '거리', en: 'Distancew' },
   descK:  { ko: '설명', en: 'About' },
   coordK: { ko: '적경/적위', en: 'RA/Dec' },
   placeholder: { ko: '오늘의 기분이나 있었던 일을 적어보세요…', en: 'Write about your mood or what happened today…' },
@@ -1321,6 +1344,44 @@ function fmtDate(d){
 }
 function loadArchive(){ try { return JSON.parse(localStorage.getItem(ARCHIVE_KEY)) || []; } catch(e){ return []; } }
 function saveArchiveArr(a){ localStorage.setItem(ARCHIVE_KEY, JSON.stringify(a)); }
+
+/* ───── Supabase 클라우드 동기화 ───── */
+const SUPA_URL = 'https://jjjghouxkidurappphxt.supabase.co';
+const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impqamdob3V4a2lkdXJhcHBwaHh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNTU3MTUsImV4cCI6MjA5NjkzMTcxNX0.FZ5LHut8KEGL2hPr28bV0SkvQ89raP2b-vMsgaqb95M';
+const sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPA_URL, SUPA_ANON) : null;
+const IDENTITY_KEY = 'todays-star-identity';
+function getIdentity(){ try { return JSON.parse(localStorage.getItem(IDENTITY_KEY)) || null; } catch(e){ return null; } }
+function setIdentity(nick, pin){ if (nick && pin) localStorage.setItem(IDENTITY_KEY, JSON.stringify({ nick, pin })); }
+async function cloudUpsert(en){
+  if (!sb || !en || !en.nick || !en.pw) return;
+  try { await sb.rpc('upsert_entry', { p_eid: en.eid, p_nick: en.nick, p_pin: en.pw, p_star_id: en.id, p_date: en.date, p_text: en.text }); }
+  catch(e){ console.warn('[cloud] upsert 실패', e); }
+}
+async function cloudDelete(en){
+  if (!sb || !en || !en.nick || !en.pw) return;
+  try { await sb.rpc('delete_entry', { p_eid: en.eid, p_nick: en.nick, p_pin: en.pw }); }
+  catch(e){ console.warn('[cloud] delete 실패', e); }
+}
+async function cloudGet(nick, pin){
+  if (!sb) return [];
+  try { const { data, error } = await sb.rpc('get_entries', { p_nick: nick, p_pin: pin }); if (error) throw error; return data || []; }
+  catch(e){ console.warn('[cloud] get 실패', e); return []; }
+}
+/* 기존 localStorage 기록 → 클라우드 1회 업로드 (기기별) */
+async function migrateLocalToCloud(){
+  if (!sb || localStorage.getItem('todays-star-migrated')) return;
+  const arr = loadArchive().filter(e => e.nick && e.pw);
+  for (const e of arr) await cloudUpsert(e);
+  localStorage.setItem('todays-star-migrated', '1');
+}
+/* 닉네임+비번으로 클라우드 기록을 로컬에 병합 (다른 기기 동기화) */
+async function pullFromCloud(nick, pin){
+  const rows = await cloudGet(nick, pin);
+  const map = new Map(loadArchive().map(e => [e.eid, e]));
+  for (const r of rows) map.set(r.eid, { eid: r.eid, id: r.star_id, date: r.date, text: r.text, nick, pw: pin });
+  saveArchiveArr([...map.values()]);
+  return rows.length;
+}
 function makeEid(){ return Date.now() + '-' + Math.random().toString(36).slice(2, 7); }
 function updatePanelOpen(){
   document.body.classList.toggle('panel-open',
@@ -1400,14 +1461,18 @@ function saveDiary(){
   const pw = dPw.value.trim();
   if (!/^\d{4}$/.test(pw)) { showToast(L.needPw[lang]); dPw.focus(); return; }
   const arr = loadArchive();
+  let saved;
   if (editingEid) {
     const idx = arr.findIndex(en => en.eid === editingEid);
-    if (idx !== -1) arr[idx] = { ...arr[idx], text, nick, pw };   // 기존 기록 수정 (eid·날짜·별 유지)
+    if (idx !== -1) { arr[idx] = { ...arr[idx], text, nick, pw }; saved = arr[idx]; }   // 기존 기록 수정 (eid·날짜·별 유지)
   } else {
-    arr.push({ eid: makeEid(), id: currentStar.id, date: new Date().toISOString(), text, nick, pw });
+    saved = { eid: makeEid(), id: currentStar.id, date: new Date().toISOString(), text, nick, pw };
+    arr.push(saved);
   }
   const wasEditing = !!editingEid;
   saveArchiveArr(arr);
+  setIdentity(nick, pw);
+  if (saved) cloudUpsert(saved);   // 클라우드 미러링 (비동기 — 실패해도 로컬 저장은 유지)
   closeDetail();
   showSaveToast(wasEditing ? L.updated[lang] : L.saved[lang]);
   if (archive.classList.contains('show')) renderArchive();
@@ -1509,7 +1574,13 @@ function renderDayPanel(){
   }).join('');
 }
 
-function deleteEntry(eid){ saveArchiveArr(loadArchive().filter(e => e.eid !== eid)); renderArchive(); }
+function deleteEntry(eid){
+  const arr = loadArchive();
+  const en = arr.find(e => e.eid === eid);
+  saveArchiveArr(arr.filter(e => e.eid !== eid));
+  if (en) cloudDelete(en);   // 클라우드에서도 삭제
+  renderArchive();
+}
 
 function openArchive(){
   const arr = loadArchive();
@@ -1526,6 +1597,13 @@ function openArchive(){
   renderArchive();
   archive.classList.add('show');
   updatePanelOpen();
+  // 신원이 기억돼 있으면 클라우드에서 자동 동기화
+  const _id = getIdentity();
+  if (_id) {
+    const ni = document.getElementById('sync-nick'), pi = document.getElementById('sync-pin');
+    if (ni) ni.value = _id.nick; if (pi) pi.value = _id.pin;
+    pullFromCloud(_id.nick, _id.pin).then(n => { if (n) renderArchive(); });
+  }
 }
 function closeArchive(){ archive.classList.remove('show'); updatePanelOpen(); }
 
@@ -1541,6 +1619,22 @@ document.getElementById('detail-close').addEventListener('click', closeDetail);
 document.getElementById('archive-close').addEventListener('click', closeArchive);
 document.getElementById('about-close').addEventListener('click', closeAbout);
 detail.addEventListener('pointerdown', (e) => { if (e.target === detail) closeDetail(); });   // 바깥 클릭
+archive.addEventListener('pointerdown', (e) => { if (!e.target.closest('.archive-inner')) closeArchive(); });  // 콘텐츠 바깥 클릭
+about.addEventListener('pointerdown', (e) => { if (!e.target.closest('.about-inner')) closeAbout(); });        // 콘텐츠 바깥 클릭
+// 클라우드 — 닉네임+비번으로 다른 기기 기록 불러오기
+document.getElementById('sync-load').addEventListener('click', async () => {
+  const statusEl = document.getElementById('sync-status');
+  const nick = document.getElementById('sync-nick').value.trim();
+  const pin = document.getElementById('sync-pin').value.trim();
+  if (!nick || !/^\d{4}$/.test(pin)) { statusEl.textContent = '닉네임과 비번 4자리를 입력하세요'; return; }
+  if (!sb) { statusEl.textContent = '클라우드에 연결할 수 없어요'; return; }
+  statusEl.textContent = '불러오는 중…';
+  setIdentity(nick, pin);
+  const n = await pullFromCloud(nick, pin);
+  renderArchive();
+  statusEl.textContent = n ? `${n}개 기록을 불러왔어요` : '해당 닉네임/비번의 기록이 없어요';
+});
+migrateLocalToCloud();   // 기존 로컬 기록 1회 클라우드 업로드
 calGrid.addEventListener('click', (e) => {
   const cell = e.target.closest('.cal-cell');
   if (!cell || cell.dataset.muted === 'true') return;
